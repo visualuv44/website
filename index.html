@@ -631,7 +631,9 @@
   #view-index {
     position: fixed; inset: 0; z-index: 500;
     display: grid; grid-template-columns: 1fr 1fr;
-    transition: transform .6s cubic-bezier(.77,0,.18,1), opacity .5s ease;
+    transition: grid-template-columns .55s cubic-bezier(.4,0,.2,1),
+                transform .55s cubic-bezier(.77,0,.18,1),
+                opacity .45s ease;
     overflow: hidden;
   }
   #view-index.hiding {
@@ -753,7 +755,6 @@
   body:has(#view-index .panel-producto:hover) .cursor-ring { border-color: rgba(28,26,23,0.3); }
 
   /* expand on hover */
-  #view-index { transition: grid-template-columns .55s cubic-bezier(.4,0,.2,1); }
   #view-index:has(.panel-eventos:hover) { grid-template-columns: 1.15fr 0.85fr; }
   #view-index:has(.panel-producto:hover) { grid-template-columns: 0.85fr 1.15fr; }
 
@@ -1711,15 +1712,20 @@
   const viewIndex = document.getElementById('view-index');
 
   function showIndex() {
-    viewIndex.classList.remove('hidden', 'hiding');
+    // Posicionar arriba sin transición, luego animar hacia abajo
+    viewIndex.classList.add('hiding');
+    viewIndex.classList.remove('hidden');
     document.body.classList.add('index-open');
+    viewIndex.offsetHeight; // force reflow
+    viewIndex.classList.remove('hiding');
     history.pushState(null, '', '#');
   }
 
   function hideIndex(targetView) {
     viewIndex.classList.add('hiding');
     document.body.classList.remove('index-open');
-    viewIndex.addEventListener('transitionend', function handler() {
+    viewIndex.addEventListener('transitionend', function handler(e) {
+      if (e.propertyName !== 'transform') return;
       viewIndex.classList.add('hidden');
       viewIndex.removeEventListener('transitionend', handler);
     });
