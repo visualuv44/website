@@ -1,0 +1,140 @@
+/* ─── INDEX OVERLAY ─── */
+#view-index {
+  position: fixed; inset: 0; z-index: 500;
+  display: grid; grid-template-columns: 1fr 1fr;
+  transition: grid-template-columns .55s cubic-bezier(.4,0,.2,1),
+              transform .55s cubic-bezier(.77,0,.18,1),
+              opacity .45s ease;
+  overflow: hidden;
+}
+#view-index.hiding {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+#view-index.hidden { display: none; }
+
+body.index-open { overflow: hidden; }
+
+/* panels */
+.panel-eventos {
+  background: var(--tierra);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 56px; cursor: none;
+  transition: background .4s;
+}
+.panel-eventos:hover { background: #231f1b; }
+.panel-eventos::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(58,107,90,0.06) 1px, transparent 1px);
+  background-size: 32px 32px; pointer-events: none;
+}
+.panel-producto {
+  background: var(--studio);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 56px; cursor: none;
+  transition: background .4s;
+  border-left: 1px solid rgba(28,26,23,0.07);
+}
+.panel-producto:hover { background: var(--studio-dark); }
+.panel-producto::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(28,26,23,0.1) 1px, transparent 1px);
+  background-size: 28px 28px; pointer-events: none;
+}
+.panel-eventos-uv, .panel-producto-uv {
+  position: absolute;
+  font-family: 'Space Mono', monospace; font-size: 260px; font-weight: 700;
+  color: rgba(240,237,230,0.025); letter-spacing: -12px;
+  bottom: -30px; right: -20px; line-height: 1; user-select: none;
+}
+.panel-producto-uv { color: rgba(28,26,23,0.025); }
+.panel-strip { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--bosque); }
+.panel-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--bosque); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+  opacity: 0; animation: fadeUp .7s .3s forwards;
+}
+.panel-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--bosque); }
+.panel-title {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(40px, 5vw, 68px); font-weight: 700;
+  line-height: 0.95; letter-spacing: -0.03em;
+  color: var(--arena); margin-bottom: 20px;
+  opacity: 0; animation: fadeUp .8s .4s forwards;
+}
+.panel-producto .panel-eyebrow { animation: fadeUp .7s .45s forwards; }
+.panel-producto .panel-title { color: var(--tierra); animation: fadeUp .8s .55s forwards; }
+.panel-desc {
+  font-size: 13px; font-weight: 300; color: var(--gris2); line-height: 1.7;
+  max-width: 300px; margin-bottom: 36px;
+  opacity: 0; animation: fadeUp .8s .5s forwards;
+}
+.panel-producto .panel-desc { color: var(--gris); animation: fadeUp .8s .65s forwards; }
+.panel-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 40px; opacity: 0; animation: fadeUp .8s .6s forwards; }
+.panel-producto .panel-tags { animation: fadeUp .8s .75s forwards; }
+.panel-tag {
+  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--bosque); border: 1px solid rgba(58,107,90,0.3); padding: 4px 10px;
+}
+.panel-cta {
+  font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--tierra); background: var(--bosque);
+  padding: 14px 24px; display: inline-flex; align-items: center; gap: 10px;
+  opacity: 0; animation: fadeUp .8s .7s forwards;
+  transition: background .2s, gap .2s; width: fit-content;
+}
+.panel-eventos:hover .panel-cta { background: #4a8a70; gap: 14px; }
+.panel-producto .panel-cta { color: var(--arena); background: var(--tierra); animation: fadeUp .8s .85s forwards; }
+.panel-producto:hover .panel-cta { background: #2e2a26; gap: 14px; }
+.index-divider {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+  background: rgba(240,237,230,0.1); z-index: 5; pointer-events: none;
+}
+.index-center-logo {
+  position: absolute; top: 60px; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; display: flex; flex-direction: column; align-items: center;
+  pointer-events: none;
+}
+.index-center-logo-box {
+  background: var(--bosque); padding: 18px 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.index-logo-uv { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: var(--tierra); letter-spacing: -0.03em; line-height: 1; }
+.index-logo-sub { font-family: 'Space Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(28,26,23,0.55); }
+.index-top-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 48px; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+}
+.index-top-bar span {
+  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(240,237,230,0.25); opacity: 0; animation: fadeUp .6s .2s forwards;
+}
+
+/* cursor adapts to panel hover */
+#view-index:has(.panel-eventos:hover) ~ * #cursor,
+body:has(#view-index:not(.hiding):not(.hidden)) #cursor { background: var(--arena); }
+body:has(#view-index .panel-eventos:hover) #cursor { background: var(--bosque); }
+body:has(#view-index .panel-producto:hover) #cursor { background: var(--tierra); }
+body:has(#view-index:not(.hiding):not(.hidden)) .cursor-ring { border-color: rgba(240,237,230,0.35); }
+body:has(#view-index .panel-eventos:hover) .cursor-ring { border-color: var(--bosque); }
+body:has(#view-index .panel-producto:hover) .cursor-ring { border-color: rgba(28,26,23,0.3); }
+
+/* expand on hover */
+#view-index:has(.panel-eventos:hover) { grid-template-columns: 1.15fr 0.85fr; }
+#view-index:has(.panel-producto:hover) { grid-template-columns: 0.85fr 1.15fr; }
+
+@media (max-width: 768px) {
+  #view-index { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  #view-index:has(.panel-eventos:hover), #view-index:has(.panel-producto:hover) { grid-template-columns: 1fr; }
+  .panel-eventos, .panel-producto { padding: 40px 28px; }
+  .panel-producto { border-left: none; border-top: 1px solid rgba(28,26,23,0.07); }
+  .index-center-logo-box { padding: 12px 20px; }
+  .index-logo-uv { font-size: 20px; }
+}

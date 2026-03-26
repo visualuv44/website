@@ -1,0 +1,31 @@
+/* ─── VIEW SWITCHING ─── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* Entrance */
+.view.anim-enter-right { animation: slideInRight .48s cubic-bezier(.25,.46,.45,.94) forwards; }
+.view.anim-enter-left  { animation: slideInLeft  .48s cubic-bezier(.25,.46,.45,.94) forwards; }
+
+/* Exit (posición absoluta para no afectar el layout del nuevo view) */
+.view.anim-exit-left, .view.anim-exit-right {
+  display: block !important;
+  position: absolute; top: 56px; left: 0; right: 0;
+  pointer-events: none; z-index: 0;
+}
+.view.anim-exit-left  { animation: slideOutLeft  .42s cubic-bezier(.25,.46,.45,.94) forwards; }
+.view.anim-exit-right { animation: slideOutRight .42s cubic-bezier(.25,.46,.45,.94) forwards; }
+
+@keyframes slideInRight  { from { opacity: 0; transform: translateX(52px);  } to { opacity: 1; transform: none; } }
+@keyframes slideInLeft   { from { opacity: 0; transform: translateX(-52px); } to { opacity: 1; transform: none; } }
+@keyframes slideOutLeft  { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(-52px); } }
+@keyframes slideOutRight { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(52px);  } }
+
+/* ─── NAV SWITCH estados ─── */
+.nav-tab-eventos-active { color: var(--tierra); background: var(--arena); border-color: rgba(28,26,23,0.15); }
+.nav-tab-productos-active { color: var(--tierra); background: var(--arena); border-color: rgba(28,26,23,0.15); }
+.nav-tab-inactive { color: var(--gris2); background: transparent; }
+.nav-tab-inactive:hover { color: var(--gris); border-color: rgba(28,26,23,0.1); }
+
+/* ─── NAV LINKS per-view visibility ─── */
+.nav-links { display: none; }
+.nav-links.nav-links-visible { display: flex; align-items: center; margin-left: auto; }

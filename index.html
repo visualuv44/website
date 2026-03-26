@@ -7,766 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
-<style>
-  /* ─── VIEW SWITCHING ─── */
-  .view { display: none; }
-  .view.active { display: block; }
-
-  /* Entrance */
-  .view.anim-enter-right { animation: slideInRight .48s cubic-bezier(.25,.46,.45,.94) forwards; }
-  .view.anim-enter-left  { animation: slideInLeft  .48s cubic-bezier(.25,.46,.45,.94) forwards; }
-
-  /* Exit (posición absoluta para no afectar el layout del nuevo view) */
-  .view.anim-exit-left, .view.anim-exit-right {
-    display: block !important;
-    position: absolute; top: 56px; left: 0; right: 0;
-    pointer-events: none; z-index: 0;
-  }
-  .view.anim-exit-left  { animation: slideOutLeft  .42s cubic-bezier(.25,.46,.45,.94) forwards; }
-  .view.anim-exit-right { animation: slideOutRight .42s cubic-bezier(.25,.46,.45,.94) forwards; }
-
-  @keyframes slideInRight  { from { opacity: 0; transform: translateX(52px);  } to { opacity: 1; transform: none; } }
-  @keyframes slideInLeft   { from { opacity: 0; transform: translateX(-52px); } to { opacity: 1; transform: none; } }
-  @keyframes slideOutLeft  { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(-52px); } }
-  @keyframes slideOutRight { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(52px);  } }
-
-  /* ─── NAV SWITCH estados ─── */
-  .nav-tab-eventos-active { color: var(--tierra); background: var(--arena); border-color: rgba(28,26,23,0.15); }
-  .nav-tab-productos-active { color: var(--tierra); background: var(--arena); border-color: rgba(28,26,23,0.15); }
-  .nav-tab-inactive { color: var(--gris2); background: transparent; }
-  .nav-tab-inactive:hover { color: var(--gris); border-color: rgba(28,26,23,0.1); }
-
-  /* ─── NAV LINKS per-view visibility ─── */
-  .nav-links { display: none; }
-  .nav-links.nav-links-visible { display: flex; align-items: center; margin-left: auto; }
-
-  /* ══════════════════════════════════════
-     EVENTOS — styles unique to this view
-     ══════════════════════════════════════ */
-
-  /* ─── HERO EVENTOS ─── */
-  #view-eventos #hero { overflow: hidden; }
-  #view-eventos .hero-left {
-    justify-content: flex-end;
-    padding: 64px 56px 72px;
-    z-index: 2;
-  }
-  .hero-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 400;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--bosque);
-    margin-bottom: 28px;
-    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-  }
-  #view-eventos .hero-title {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(52px, 7vw, 88px);
-    font-weight: 700; line-height: 0.95;
-    letter-spacing: -0.03em;
-    color: var(--tierra); margin-bottom: 36px;
-    opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
-  }
-  #view-eventos .hero-title .line-accent { color: var(--bosque); display: block; }
-  #view-eventos .hero-title .line-thin {
-    font-weight: 400; color: var(--gris);
-    font-size: 0.55em; letter-spacing: 0.08em;
-    display: block; margin-top: 8px;
-  }
-  #view-eventos .hero-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 300;
-    color: var(--gris); line-height: 1.7;
-    max-width: 340px; margin-bottom: 48px;
-    opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
-  }
-  #view-eventos .hero-btns {
-    display: flex; gap: 14px; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
-  }
-  .btn-primary {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--arena); background: var(--tierra);
-    padding: 16px 28px; text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-    border: 1.5px solid var(--tierra);
-  }
-  .btn-primary:hover { background: #2e2a26; transform: translateY(-2px); }
-  .btn-ghost {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 400;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--tierra); background: transparent;
-    padding: 16px 28px; text-decoration: none;
-    border: 1.5px solid rgba(28,26,23,0.2);
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--tierra); transform: translateY(-2px); }
-
-  /* Hero derecha — composición abstracta */
-  .hero-photo-placeholder {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 0;
-  }
-  .hero-composition { position: absolute; inset: 0; }
-  .hero-bar { position: absolute; left: 0; right: 0; background: var(--bosque); opacity: 0.08; }
-  .hero-line-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(240,237,230,0.06); }
-  .hero-uv-bg {
-    position: absolute;
-    font-family: 'Space Mono', monospace;
-    font-size: 220px; font-weight: 700;
-    color: rgba(28,26,23,0.03); letter-spacing: -10px;
-    bottom: -20px; right: -20px; line-height: 1; user-select: none;
-  }
-  .hero-frame {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px; height: 260px;
-    border: 1px solid rgba(58,107,90,0.5);
-    overflow: hidden;
-  }
-  .hero-frame-text {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; color: rgba(28,26,23,0.3);
-    letter-spacing: 0.2em; text-transform: uppercase;
-    writing-mode: vertical-rl;
-  }
-  .hero-strip { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--bosque); }
-  .hero-coords {
-    position: absolute; bottom: 40px; left: 32px;
-    font-family: 'Space Mono', monospace;
-    font-size: 8px; color: rgba(28,26,23,0.3); letter-spacing: 0.12em;
-    opacity: 0; animation: fadeUp 1s 1s forwards;
-  }
-
-  /* ─── SERVICIOS ─── */
-  #view-eventos #servicios { padding: 120px 56px; background: var(--studio); }
-  #view-eventos .section-title { max-width: 500px; }
-  #view-eventos .section-title em { display: block; margin-top: 6px; }
-
-  .servicios-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: rgba(28,26,23,0.08);
-    border: 1px solid rgba(28,26,23,0.08);
-  }
-  .servicio-card {
-    background: var(--studio);
-    padding: 40px 36px;
-    position: relative;
-    transition: background 0.3s;
-    cursor: default;
-  }
-  .servicio-card:hover { background: var(--studio-dark); }
-  .servicio-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: var(--bosque);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  .servicio-card:hover::before { transform: scaleX(1); }
-  .serv-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; color: var(--bosque);
-    letter-spacing: 0.18em; margin-bottom: 20px;
-  }
-  .serv-icon { width: 40px; height: 40px; margin-bottom: 20px; }
-  .serv-name {
-    font-family: 'Space Mono', monospace;
-    font-size: 18px; font-weight: 700;
-    color: var(--tierra); letter-spacing: -0.01em;
-    margin-bottom: 12px; line-height: 1.1;
-  }
-  .serv-desc {
-    font-size: 13px; font-weight: 300;
-    color: var(--gris); line-height: 1.65;
-    margin-bottom: 24px;
-  }
-  .serv-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .serv-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--bosque);
-    border: 1px solid rgba(58,107,90,0.3);
-    padding: 4px 10px;
-  }
-
-  /* ─── PROCESO EVENTOS ─── */
-  #view-eventos #proceso {
-    padding: 120px 56px;
-    background: var(--tierra);
-    position: relative; overflow: hidden;
-  }
-  #view-eventos #proceso .section-eyebrow { color: var(--bosque); }
-  #view-eventos #proceso .section-eyebrow::before { background: var(--bosque); }
-  #view-eventos #proceso .section-title { color: var(--arena); -webkit-text-stroke: 0; }
-  #view-eventos #proceso .section-title em { -webkit-text-stroke: 1.2px var(--arena); color: transparent; }
-  #view-eventos #proceso::after {
-    content: 'UV';
-    position: absolute; right: -40px; top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Space Mono', monospace;
-    font-size: 320px; font-weight: 700;
-    color: rgba(240,237,230,0.02);
-    letter-spacing: -15px; user-select: none;
-  }
-  .proceso-steps {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 0; margin-top: 60px; position: relative; z-index: 1;
-  }
-  .proceso-step {
-    padding: 32px 28px 32px 0;
-    border-right: 1px solid rgba(240,237,230,0.06);
-    position: relative;
-  }
-  .proceso-step:last-child { border-right: none; padding-right: 0; }
-  .paso-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 36px; font-weight: 700;
-    color: rgba(240,237,230,0.08); line-height: 1; margin-bottom: 16px;
-  }
-  .paso-name {
-    font-family: 'Space Mono', monospace;
-    font-size: 13px; font-weight: 700;
-    color: var(--arena); letter-spacing: -0.01em; margin-bottom: 10px;
-  }
-  .paso-desc { font-size: 12px; font-weight: 300; color: var(--gris2); line-height: 1.6; }
-
-  /* ─── GALERÍA EVENTOS ─── */
-  #view-eventos #galeria { padding: 120px 0 0; background: var(--studio); }
-  #view-eventos .galeria-header { padding: 0 56px 64px; }
-  .galeria-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; background: rgba(28,26,23,0.06);
-  }
-  .galeria-item {
-    aspect-ratio: 3/4;
-    background: var(--studio-dark);
-    position: relative; overflow: hidden; cursor: pointer;
-  }
-  .galeria-item:nth-child(1) { aspect-ratio: 3/4; }
-  .galeria-item:nth-child(2) { aspect-ratio: 3/4; }
-  .galeria-item:nth-child(3) { aspect-ratio: 3/4; }
-  .galeria-item:nth-child(4) { aspect-ratio: 3/2; grid-column: span 2; }
-  .galeria-item:nth-child(5) { aspect-ratio: 3/4; }
-  .galeria-item:nth-child(6) { aspect-ratio: 3/4; }
-  .galeria-item:nth-child(7) { aspect-ratio: 3/2; grid-column: span 2; }
-  .galeria-item img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; transition: transform 0.6s ease;
-  }
-  .galeria-item:hover img { transform: scale(1.04); }
-  .galeria-item-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(28,26,23,0.9) 0%, transparent 50%);
-    opacity: 0; transition: opacity 0.4s;
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
-  }
-  .galeria-item:hover .galeria-item-overlay { opacity: 1; }
-  .galeria-overlay-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--bosque); margin-bottom: 6px;
-  }
-  .galeria-overlay-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 14px; font-weight: 700; color: var(--arena);
-  }
-
-  /* ─── CONTACTO EVENTOS ─── */
-  #view-eventos #contacto::after {
-    content: 'UV';
-    position: absolute; right: -20px; bottom: -40px;
-    font-family: 'Space Mono', monospace;
-    font-size: 280px; font-weight: 700;
-    color: rgba(240,237,230,0.02);
-    letter-spacing: -12px; user-select: none;
-  }
-  #view-eventos .contacto-inner {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: start;
-  }
-  .contacto-title {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(36px, 4.5vw, 58px);
-    font-weight: 700; line-height: 0.95;
-    letter-spacing: -0.02em; color: var(--arena); margin-bottom: 20px;
-  }
-  .contacto-sub {
-    font-size: 15px; font-weight: 300;
-    color: var(--gris2); line-height: 1.65; max-width: 340px;
-  }
-  .contacto-links {
-    margin-top: 40px; display: flex; flex-direction: column; gap: 0;
-    border-top: 1px solid rgba(240,237,230,0.07);
-  }
-  .contacto-link {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 0; border-bottom: 1px solid rgba(240,237,230,0.07);
-    text-decoration: none; transition: padding-left 0.2s; cursor: pointer;
-  }
-  .contacto-link:hover { padding-left: 8px; }
-  .cl-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gris); }
-  .cl-value { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--arena); }
-  .cl-arrow { font-size: 14px; color: var(--gris); }
-  .contacto-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-field { display: flex; flex-direction: column; gap: 6px; }
-  .form-textarea { resize: none; height: 100px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-  /* ─── FOOTER EVENTOS ─── */
-  #view-eventos .footer-copy {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px; letter-spacing: 0.14em; color: var(--gris); text-transform: uppercase;
-  }
-
-  /* ─── MOBILE EVENTOS ─── */
-  @media (max-width: 768px) {
-    #view-eventos #servicios,
-    #view-eventos #proceso,
-    #view-eventos #sobre,
-    #view-eventos .galeria-header,
-    #view-eventos #contacto { padding: 80px 28px; }
-    #view-eventos .servicios-grid { grid-template-columns: 1fr; }
-    #view-eventos .proceso-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
-    #view-eventos .proceso-step { border-right: none; padding-right: 0; }
-    #view-eventos .galeria-grid { grid-template-columns: 1fr 1fr; }
-    #view-eventos .galeria-item:nth-child(4) { grid-column: span 2; aspect-ratio: 16/9; }
-    #view-eventos .contacto-inner { grid-template-columns: 1fr; gap: 48px; }
-    #view-eventos .form-row { grid-template-columns: 1fr; }
-  }
-
-  /* ══════════════════════════════════════
-     PRODUCTOS — styles unique to this view
-     ══════════════════════════════════════ */
-
-  /* ─── HERO PRODUCTOS ─── */
-  #view-productos .hero-left {
-    justify-content: center;
-    padding: 80px 64px 80px 56px;
-  }
-  #view-productos .hero-left::before {
-    content: '';
-    position: absolute; top: 56px; left: 56px; right: 64px; bottom: 80px;
-    border: 1px solid rgba(28,26,23,0.04);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 400;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--bosque); margin-bottom: 24px;
-    display: flex; align-items: center; gap: 10px;
-    opacity: 0; animation: fadeUp .7s .1s forwards;
-  }
-  .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--bosque); }
-  #view-productos .hero-title {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(44px, 5.5vw, 76px);
-    font-weight: 700; line-height: 0.95;
-    letter-spacing: -0.03em; color: var(--tierra);
-    margin-bottom: 12px;
-    opacity: 0; animation: fadeUp .8s .2s forwards;
-  }
-  .hero-title-outline {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(44px, 5.5vw, 76px);
-    font-weight: 700; line-height: 0.95;
-    letter-spacing: -0.03em;
-    -webkit-text-stroke: 1.5px var(--tierra); color: transparent;
-    display: block; margin-bottom: 32px;
-    opacity: 0; animation: fadeUp .8s .3s forwards;
-  }
-  #view-productos .hero-desc {
-    font-size: 15px; font-weight: 300;
-    color: var(--gris); line-height: 1.75;
-    max-width: 380px; margin-bottom: 48px;
-    opacity: 0; animation: fadeUp .8s .4s forwards;
-  }
-  #view-productos .hero-btns {
-    display: flex; gap: 12px;
-    opacity: 0; animation: fadeUp .8s .5s forwards;
-  }
-  .btn-dark {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--arena); background: var(--tierra);
-    padding: 15px 26px; text-decoration: none;
-    transition: background .2s, transform .2s;
-    border: 1.5px solid var(--tierra);
-  }
-  .btn-dark:hover { background: #2e2a26; transform: translateY(-2px); }
-  .btn-outline-dark {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 400;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--tierra); background: transparent;
-    padding: 15px 26px; text-decoration: none;
-    border: 1.5px solid rgba(28,26,23,0.2);
-    transition: border-color .2s, transform .2s;
-  }
-  .btn-outline-dark:hover { border-color: var(--tierra); transform: translateY(-2px); }
-
-  /* Hero derecha productos: composición de estudio */
-  #view-productos .hero-right {
-    background: var(--studio-dark);
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .studio-composition { position: relative; z-index: 1; width: 320px; height: 380px; }
-  .studio-obj-main {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 160px; height: 200px;
-    background: var(--studio);
-    border: 1px solid rgba(28,26,23,0.12);
-    box-shadow: 8px 8px 0 0 rgba(28,26,23,0.06), 16px 16px 0 0 rgba(28,26,23,0.03);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .studio-obj-main::after {
-    content: ''; position: absolute; inset: 12px;
-    border: 1px dashed rgba(28,26,23,0.08);
-  }
-  .studio-obj-sec {
-    position: absolute; top: 32px; right: 24px;
-    width: 80px; height: 80px;
-    background: rgba(58,107,90,0.08); border: 1px solid rgba(58,107,90,0.2); border-radius: 50%;
-  }
-  .studio-obj-ter {
-    position: absolute; bottom: 40px; left: 20px;
-    width: 60px; height: 90px;
-    background: rgba(200,130,58,0.08); border: 1px solid rgba(200,130,58,0.2);
-  }
-  .studio-shadow {
-    position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-    width: 200px; height: 8px;
-    background: radial-gradient(ellipse, rgba(28,26,23,0.15) 0%, transparent 70%);
-  }
-  .studio-rule-h {
-    position: absolute; top: 28px; left: 0; right: 0;
-    height: 1px; background: rgba(28,26,23,0.1); display: flex; align-items: center;
-  }
-  .studio-rule-h::before, .studio-rule-h::after {
-    content: ''; position: absolute; width: 1px; height: 6px; background: rgba(28,26,23,0.15);
-  }
-  .studio-rule-h::before { left: 0; }
-  .studio-rule-h::after  { right: 0; }
-  .studio-rule-v { position: absolute; top: 0; bottom: 0; left: 28px; width: 1px; background: rgba(28,26,23,0.1); }
-  .studio-label {
-    position: absolute; font-family: 'Space Mono', monospace;
-    font-size: 7px; letter-spacing: 0.14em; color: rgba(28,26,23,0.3); text-transform: uppercase;
-  }
-  .hero-right-tag {
-    position: absolute; bottom: 32px; right: 32px;
-    font-family: 'Space Mono', monospace;
-    font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: rgba(28,26,23,0.3);
-    opacity: 0; animation: fadeUp .8s 1s forwards;
-  }
-  .hero-left-stripe { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--bosque); }
-
-  /* ─── PARA QUIÉN ─── */
-  #view-productos #para-quien { padding: 110px 56px; background: var(--studio); }
-  #view-productos .section-title { max-width: 520px; }
-  #view-productos .section-title em { display: inline; }
-  .clientes-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1px; background: rgba(28,26,23,0.08); border: 1px solid rgba(28,26,23,0.08);
-  }
-  .cliente-card {
-    background: var(--studio); padding: 36px 28px;
-    position: relative; transition: background .3s;
-  }
-  .cliente-card:hover { background: var(--studio-dark); }
-  .cliente-card::after {
-    content: ''; position: absolute; bottom: 0; left: 28px; right: 28px;
-    height: 2px; background: var(--bosque);
-    transform: scaleX(0); transform-origin: left; transition: transform .4s ease;
-  }
-  .cliente-card:hover::after { transform: scaleX(1); }
-  .cliente-icon { width: 36px; height: 36px; margin-bottom: 20px; }
-  .cliente-name {
-    font-family: 'Space Mono', monospace;
-    font-size: 13px; font-weight: 700; color: var(--tierra);
-    letter-spacing: -0.01em; margin-bottom: 10px;
-  }
-  .cliente-desc { font-size: 12px; font-weight: 300; color: var(--gris); line-height: 1.6; margin-bottom: 18px; }
-  .cliente-ej { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bosque); }
-
-  /* ─── QUÉ INCLUYE ─── */
-  #view-productos #incluye {
-    padding: 110px 56px; background: var(--tierra); position: relative; overflow: hidden;
-  }
-  #view-productos #incluye .section-title { color: var(--arena); }
-  #view-productos #incluye .section-title em { -webkit-text-stroke-color: var(--arena); }
-  #view-productos #incluye .section-eyebrow { color: var(--bosque); }
-  #view-productos #incluye .section-eyebrow::before { background: var(--bosque); }
-  #view-productos #incluye::after {
-    content: 'UV'; position: absolute; right: -20px; bottom: -60px;
-    font-family: 'Space Mono', monospace; font-size: 300px; font-weight: 700;
-    color: rgba(240,237,230,0.02); letter-spacing: -14px; user-select: none;
-  }
-  .paquetes-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; background: rgba(240,237,230,0.05); border: 1px solid rgba(240,237,230,0.05);
-    position: relative; z-index: 1;
-  }
-  .paquete { background: var(--tierra); padding: 40px 32px; position: relative; transition: background .3s; }
-  .paquete:hover { background: #231f1b; }
-  .paquete-featured { background: var(--bosque) !important; }
-  .paquete-featured:hover { background: #4a8a70 !important; }
-  .paq-tag { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bosque); margin-bottom: 20px; }
-  .paquete-featured .paq-tag { color: rgba(28,26,23,0.6); }
-  .paq-name { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: var(--arena); margin-bottom: 6px; letter-spacing: -0.02em; }
-  .paquete-featured .paq-name { color: var(--tierra); }
-  .paq-cant { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--gris2); margin-bottom: 28px; }
-  .paquete-featured .paq-cant { color: rgba(28,26,23,0.55); }
-  .paq-items { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-  .paq-items li { font-size: 12px; font-weight: 300; color: var(--gris2); line-height: 1.4; display: flex; gap: 10px; align-items: flex-start; }
-  .paquete-featured .paq-items li { color: rgba(28,26,23,0.7); }
-  .paq-items li::before { content: '▸'; color: var(--bosque); font-size: 10px; flex-shrink: 0; margin-top: 1px; }
-  .paquete-featured .paq-items li::before { color: rgba(28,26,23,0.4); }
-  .paq-cta {
-    display: inline-block; font-family: 'Space Mono', monospace;
-    font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--arena); border: 1px solid rgba(240,237,230,0.2); padding: 11px 20px;
-    text-decoration: none; transition: border-color .2s, background .2s;
-  }
-  .paq-cta:hover { border-color: var(--arena); background: rgba(240,237,230,0.05); }
-  .paquete-featured .paq-cta { color: var(--tierra); border-color: rgba(28,26,23,0.25); background: rgba(28,26,23,0.1); }
-  .paquete-featured .paq-cta:hover { background: rgba(28,26,23,0.2); border-color: var(--tierra); }
-
-  /* ─── GALERÍA PRODUCTO ─── */
-  #view-productos #galeria { padding: 110px 0 0; background: var(--studio); }
-  #view-productos .galeria-header { padding: 0 56px 60px; }
-  .prod-galeria-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto; gap: 1px; background: rgba(28,26,23,0.06);
-  }
-  .g-item { background: var(--studio-dark); position: relative; overflow: hidden; cursor: pointer; }
-  .g-item:nth-child(1) { aspect-ratio: 4/5; grid-row: span 2; background: #e8e4dc; }
-  .g-item:nth-child(2) { aspect-ratio: 1/1; background: #ede9e1; }
-  .g-item:nth-child(3) { aspect-ratio: 1/1; background: #e6f0eb; }
-  .g-item:nth-child(4) { aspect-ratio: 1/1; background: #f0ebe0; }
-  .g-item:nth-child(5) { aspect-ratio: 1/1; background: #e8e3db; }
-  .g-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-  .g-overlay {
-    position: absolute; inset: 0; background: rgba(28,26,23,0.0);
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
-    transition: background .35s;
-  }
-  .g-item:hover .g-overlay { background: rgba(28,26,23,0.65); }
-  .g-overlay-content { transform: translateY(10px); opacity: 0; transition: transform .3s, opacity .3s; }
-  .g-item:hover .g-overlay-content { transform: none; opacity: 1; }
-  .g-tag { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bosque); margin-bottom: 4px; }
-  .g-name { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--arena); line-height: 1.2; }
-  .prod-icon { opacity: 0.18; }
-
-  /* ─── CÓMO FUNCIONA ─── */
-  #view-productos #como { padding: 110px 56px; background: var(--studio); border-top: 1px solid rgba(28,26,23,0.07); }
-  .como-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; margin-top: 60px; }
-  .como-left { position: sticky; top: 80px; }
-  .como-quote { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 300; font-style: italic; color: var(--tierra); line-height: 1.6; margin-bottom: 24px; }
-  .como-firma { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bosque); }
-  .como-steps { display: flex; flex-direction: column; gap: 0; }
-  .como-step { display: grid; grid-template-columns: 60px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid rgba(28,26,23,0.07); position: relative; }
-  .como-step:last-child { border-bottom: none; }
-  .cs-num { font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700; color: rgba(28,26,23,0.08); line-height: 1; }
-  .cs-title { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--tierra); margin-bottom: 8px; letter-spacing: -0.01em; }
-  .cs-desc { font-size: 13px; font-weight: 300; color: var(--gris); line-height: 1.65; }
-  .cs-detail { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bosque); margin-top: 10px; }
-
-  /* ─── CONTACTO PRODUCTOS ─── */
-  #view-productos .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; z-index: 1; }
-  #view-productos .contacto-title { font-family: 'Space Mono', monospace; font-size: clamp(34px, 4vw, 54px); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; color: var(--arena); margin-bottom: 20px; }
-  #view-productos .contacto-sub { font-size: 15px; font-weight: 300; color: var(--gris2); line-height: 1.7; max-width: 360px; margin-bottom: 40px; }
-  .contacto-data { display: flex; flex-direction: column; border-top: 1px solid rgba(240,237,230,0.07); }
-  .cd-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid rgba(240,237,230,0.07); cursor: pointer; transition: padding-left .2s; }
-  .cd-row:hover { padding-left: 8px; }
-  .cd-label { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gris); }
-  .cd-value { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--arena); }
-  .cd-arrow { color: var(--gris); font-size: 12px; }
-  #view-productos .contacto-form { display: flex; flex-direction: column; gap: 14px; }
-  .form-group { display: flex; flex-direction: column; gap: 5px; }
-  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form-check { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; }
-  .form-check input[type="checkbox"] { width: 14px; height: 14px; margin-top: 2px; accent-color: var(--bosque); cursor: pointer; flex-shrink: 0; }
-  .form-check label { font-size: 11px; font-weight: 300; color: var(--gris2); line-height: 1.5; cursor: pointer; }
-
-  /* ─── FOOTER PRODUCTOS ─── */
-  #view-productos .footer-left { display: flex; align-items: center; gap: 20px; }
-  .footer-sep { width: 1px; height: 14px; background: rgba(240,237,230,0.1); }
-  .footer-sub { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bosque); }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); text-decoration: none; transition: color .2s; }
-  .footer-links a:hover { color: var(--arena); }
-
-  /* ─── MOBILE PRODUCTOS ─── */
-  @media (max-width: 768px) {
-    #view-productos #para-quien,
-    #view-productos #incluye,
-    #view-productos #como,
-    #view-productos #sobre,
-    #view-productos .galeria-header,
-    #view-productos #contacto { padding: 72px 28px; }
-    #view-productos .clientes-grid { grid-template-columns: 1fr 1fr; }
-    #view-productos .paquetes-grid { grid-template-columns: 1fr; }
-    #view-productos .prod-galeria-grid { grid-template-columns: 1fr 1fr; }
-    #view-productos .g-item:nth-child(1) { grid-row: span 1; aspect-ratio: 1/1; }
-    #view-productos .como-grid { grid-template-columns: 1fr; }
-    #view-productos .como-left { position: static; }
-    #view-productos .contacto-grid { grid-template-columns: 1fr; gap: 48px; }
-    #view-productos footer { flex-direction: column; align-items: flex-start; }
-    #view-productos .form-row-2 { grid-template-columns: 1fr; }
-  }
-
-  /* ─── INDEX OVERLAY ─── */
-  #view-index {
-    position: fixed; inset: 0; z-index: 500;
-    display: grid; grid-template-columns: 1fr 1fr;
-    transition: grid-template-columns .55s cubic-bezier(.4,0,.2,1),
-                transform .55s cubic-bezier(.77,0,.18,1),
-                opacity .45s ease;
-    overflow: hidden;
-  }
-  #view-index.hiding {
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-  }
-  #view-index.hidden { display: none; }
-
-  body.index-open { overflow: hidden; }
-
-  /* panels */
-  .panel-eventos {
-    background: var(--tierra);
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 56px; cursor: none;
-    transition: background .4s;
-  }
-  .panel-eventos:hover { background: #231f1b; }
-  .panel-eventos::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(58,107,90,0.06) 1px, transparent 1px);
-    background-size: 32px 32px; pointer-events: none;
-  }
-  .panel-producto {
-    background: var(--studio);
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 56px; cursor: none;
-    transition: background .4s;
-    border-left: 1px solid rgba(28,26,23,0.07);
-  }
-  .panel-producto:hover { background: var(--studio-dark); }
-  .panel-producto::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(28,26,23,0.1) 1px, transparent 1px);
-    background-size: 28px 28px; pointer-events: none;
-  }
-  .panel-eventos-uv, .panel-producto-uv {
-    position: absolute;
-    font-family: 'Space Mono', monospace; font-size: 260px; font-weight: 700;
-    color: rgba(240,237,230,0.025); letter-spacing: -12px;
-    bottom: -30px; right: -20px; line-height: 1; user-select: none;
-  }
-  .panel-producto-uv { color: rgba(28,26,23,0.025); }
-  .panel-strip { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--bosque); }
-  .panel-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--bosque); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 10px;
-    opacity: 0; animation: fadeUp .7s .3s forwards;
-  }
-  .panel-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--bosque); }
-  .panel-title {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(40px, 5vw, 68px); font-weight: 700;
-    line-height: 0.95; letter-spacing: -0.03em;
-    color: var(--arena); margin-bottom: 20px;
-    opacity: 0; animation: fadeUp .8s .4s forwards;
-  }
-  .panel-producto .panel-eyebrow { animation: fadeUp .7s .45s forwards; }
-  .panel-producto .panel-title { color: var(--tierra); animation: fadeUp .8s .55s forwards; }
-  .panel-desc {
-    font-size: 13px; font-weight: 300; color: var(--gris2); line-height: 1.7;
-    max-width: 300px; margin-bottom: 36px;
-    opacity: 0; animation: fadeUp .8s .5s forwards;
-  }
-  .panel-producto .panel-desc { color: var(--gris); animation: fadeUp .8s .65s forwards; }
-  .panel-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 40px; opacity: 0; animation: fadeUp .8s .6s forwards; }
-  .panel-producto .panel-tags { animation: fadeUp .8s .75s forwards; }
-  .panel-tag {
-    font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--bosque); border: 1px solid rgba(58,107,90,0.3); padding: 4px 10px;
-  }
-  .panel-cta {
-    font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--tierra); background: var(--bosque);
-    padding: 14px 24px; display: inline-flex; align-items: center; gap: 10px;
-    opacity: 0; animation: fadeUp .8s .7s forwards;
-    transition: background .2s, gap .2s; width: fit-content;
-  }
-  .panel-eventos:hover .panel-cta { background: #4a8a70; gap: 14px; }
-  .panel-producto .panel-cta { color: var(--arena); background: var(--tierra); animation: fadeUp .8s .85s forwards; }
-  .panel-producto:hover .panel-cta { background: #2e2a26; gap: 14px; }
-  .index-divider {
-    position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
-    background: rgba(240,237,230,0.1); z-index: 5; pointer-events: none;
-  }
-  .index-center-logo {
-    position: absolute; top: 60px; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10; display: flex; flex-direction: column; align-items: center;
-    pointer-events: none;
-  }
-  .index-center-logo-box {
-    background: var(--bosque); padding: 18px 28px;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  .index-logo-uv { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: var(--tierra); letter-spacing: -0.03em; line-height: 1; }
-  .index-logo-sub { font-family: 'Space Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(28,26,23,0.55); }
-  .index-top-bar {
-    position: absolute; top: 0; left: 0; right: 0; height: 48px; z-index: 20;
-    display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
-  }
-  .index-top-bar span {
-    font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(240,237,230,0.25); opacity: 0; animation: fadeUp .6s .2s forwards;
-  }
-  /* cursor adapts to panel hover */
-  #view-index:has(.panel-eventos:hover) ~ * #cursor,
-  body:has(#view-index:not(.hiding):not(.hidden)) #cursor { background: var(--arena); }
-  body:has(#view-index .panel-eventos:hover) #cursor { background: var(--bosque); }
-  body:has(#view-index .panel-producto:hover) #cursor { background: var(--tierra); }
-  body:has(#view-index:not(.hiding):not(.hidden)) .cursor-ring { border-color: rgba(240,237,230,0.35); }
-  body:has(#view-index .panel-eventos:hover) .cursor-ring { border-color: var(--bosque); }
-  body:has(#view-index .panel-producto:hover) .cursor-ring { border-color: rgba(28,26,23,0.3); }
-
-  /* expand on hover */
-  #view-index:has(.panel-eventos:hover) { grid-template-columns: 1.15fr 0.85fr; }
-  #view-index:has(.panel-producto:hover) { grid-template-columns: 0.85fr 1.15fr; }
-
-  @media (max-width: 768px) {
-    #view-index { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-    #view-index:has(.panel-eventos:hover), #view-index:has(.panel-producto:hover) { grid-template-columns: 1fr; }
-    .panel-eventos, .panel-producto { padding: 40px 28px; }
-    .panel-producto { border-left: none; border-top: 1px solid rgba(28,26,23,0.07); }
-    .index-center-logo-box { padding: 12px 20px; }
-    .index-logo-uv { font-size: 20px; }
-  }
-</style>
+<link rel="stylesheet" href="views.css">
+<link rel="stylesheet" href="eventos.css">
+<link rel="stylesheet" href="productos.css">
+<link rel="stylesheet" href="index-overlay.css">
 </head>
 <body>
 
@@ -786,7 +30,7 @@
     <div class="panel-strip"></div>
     <span class="panel-eventos-uv">UV</span>
     <div class="panel-eyebrow">Fotografía de eventos</div>
-    <h2 class="panel-title">CADA<br>MOMENTO.</h2>
+    <h2 class="panel-title">EVENTO.</h2>
     <p class="panel-desc">Casamientos, festivales, cumpleaños y sesiones. Sin filtros, sin poses forzadas.</p>
     <div class="panel-tags">
       <span class="panel-tag">Casamientos</span>
@@ -799,7 +43,7 @@
   <div class="panel-producto" data-goto="productos">
     <span class="panel-producto-uv">UV</span>
     <div class="panel-eyebrow">Fotografía de producto</div>
-    <h2 class="panel-title">TU MARCA,<br>BIEN VISTA.</h2>
+    <h2 class="panel-title">PRODUCTO.</h2>
     <p class="panel-desc">Para emprendimientos y marcas de El Bolsón y la comarca. Artesanal, gastronómico, textil.</p>
     <div class="panel-tags">
       <span class="panel-tag">Artesanal</span>
@@ -853,10 +97,9 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-tag">▲ El Bolsón · Patagonia · La Comarca</div>
+    <div class="hero-tag">▲ El Bolsón · La Comarca · Fotografía de eventos</div>
     <h1 class="hero-title">
-      CADA<br>
-      <span class="line-accent">MOMENTO</span>
+      <span class="line-accent">CADA EVENTO</span>
       <span class="line-thin">tiene su propia luz.</span>
     </h1>
     <p class="hero-desc">
@@ -880,7 +123,7 @@
     <div class="hero-strip"></div>
     <div class="hero-uv-bg">UV</div>
     <div class="hero-frame">
-      <img src="img/cumple/LUV-55.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img src="img/cumple/LUV-55.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
       <!-- Círculos concéntricos fondo -->
@@ -1046,7 +289,7 @@
   <div class="galeria-grid">
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-24.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-24.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1054,7 +297,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-33.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-33.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1062,7 +305,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-36.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-36.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1070,7 +313,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-55.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-55.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1078,7 +321,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-57.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-57.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1086,7 +329,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-76.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-76.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1094,7 +337,7 @@
     </div>
 
     <div class="galeria-item">
-      <img src="img/cumple/LUV-104.jpg" alt="Cumpleaños · El Bolsón">
+      <img src="img/cumple/LUV-104.webp" alt="Cumpleaños · El Bolsón">
       <div class="galeria-item-overlay">
         <div class="galeria-overlay-tag">Cumpleaños</div>
         <div class="galeria-overlay-title">El Bolsón · 2024</div>
@@ -1241,8 +484,7 @@
   <div class="hero-left">
     <div class="hero-left-stripe"></div>
     <div class="hero-eyebrow">Foto producto · El Bolsón</div>
-    <h1 class="hero-title">TU MARCA,</h1>
-    <span class="hero-title-outline">BIEN VISTA.</span>
+    <h1 class="hero-title">PRODUCTO.</h1>
     <p class="hero-desc">
       Fotografía de producto para emprendimientos y marcas de El Bolsón y la comarca.
       Artesanal, gastronómico, textil, cosmética natural — con la identidad del territorio.
@@ -1261,12 +503,7 @@
       <div class="studio-obj-sec"></div>
       <div class="studio-obj-ter"></div>
       <div class="studio-obj-main">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" class="prod-icon" style="opacity:0.25">
-          <rect x="12" y="8" width="24" height="32" rx="2" stroke="#1c1a17" stroke-width="1.5"/>
-          <line x1="16" y1="20" x2="32" y2="20" stroke="#1c1a17" stroke-width="1"/>
-          <line x1="16" y1="26" x2="28" y2="26" stroke="#1c1a17" stroke-width="1"/>
-          <circle cx="24" cy="14" r="2" stroke="#1c1a17" stroke-width="1"/>
-        </svg>
+        <img src="img/productos/IMG_7012.webp" alt="Fotografía de producto · visualuv">
         <div class="studio-shadow"></div>
       </div>
       <span class="studio-label" style="top:12px;left:36px">COMPOSICIÓN</span>
@@ -1414,86 +651,121 @@
 
     <div class="g-item">
       <div class="g-inner">
-        <svg width="80" height="100" viewBox="0 0 80 100" fill="none" class="prod-icon">
-          <rect x="20" y="10" width="40" height="70" rx="4" stroke="#1c1a17" stroke-width="1.2"/>
-          <rect x="28" y="6" width="24" height="8" rx="2" fill="#1c1a17" opacity=".3"/>
-          <line x1="24" y1="35" x2="56" y2="35" stroke="#1c1a17" stroke-width="0.8"/>
-          <line x1="24" y1="50" x2="50" y2="50" stroke="#1c1a17" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <div class="g-overlay">
-        <div class="g-overlay-content">
-          <div class="g-tag">Cosmética natural</div>
-          <div class="g-name">Rosa Mosqueta<br>Bolsón Herbs</div>
-        </div>
+        <img src="img/productos/LUV-7.webp" alt="Producto · visualuv" loading="lazy">
       </div>
     </div>
 
     <div class="g-item">
       <div class="g-inner">
-        <svg width="70" height="70" viewBox="0 0 70 70" fill="none" class="prod-icon">
-          <ellipse cx="35" cy="45" rx="22" ry="14" stroke="#3a6b5a" stroke-width="1.2"/>
-          <path d="M13 45V30l22-15 22 15v15" stroke="#3a6b5a" stroke-width="1.2" stroke-linejoin="round"/>
-          <line x1="35" y1="15" x2="35" y2="45" stroke="#3a6b5a" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <div class="g-overlay">
-        <div class="g-overlay-content">
-          <div class="g-tag">Gastronomía</div>
-          <div class="g-name">Cerveza Patagónica<br>El Bolsón</div>
-        </div>
+        <img src="img/productos/LUV-12.webp" alt="Producto · visualuv" loading="lazy">
       </div>
     </div>
 
     <div class="g-item">
       <div class="g-inner">
-        <svg width="60" height="80" viewBox="0 0 60 80" fill="none" class="prod-icon">
-          <path d="M10 60 Q10 20 30 10 Q50 20 50 60 Q50 72 30 72 Q10 72 10 60Z" stroke="#1c1a17" stroke-width="1.2"/>
-          <path d="M18 45 Q30 35 42 45" stroke="#1c1a17" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <div class="g-overlay">
-        <div class="g-overlay-content">
-          <div class="g-tag">Artesanal</div>
-          <div class="g-name">Mermelada de Rosa<br>Feria Regional</div>
-        </div>
+        <img src="img/productos/LUV-16.webp" alt="Producto · visualuv" loading="lazy">
       </div>
     </div>
 
     <div class="g-item">
       <div class="g-inner">
-        <svg width="90" height="60" viewBox="0 0 90 60" fill="none" class="prod-icon">
-          <rect x="8" y="15" width="74" height="38" rx="3" stroke="#1c1a17" stroke-width="1.2"/>
-          <line x1="8" y1="28" x2="82" y2="28" stroke="#1c1a17" stroke-width="0.8"/>
-          <circle cx="24" cy="21" r="3" fill="#1c1a17" opacity=".3"/>
-          <line x1="16" y1="37" x2="50" y2="37" stroke="#1c1a17" stroke-width="0.8"/>
-          <line x1="16" y1="44" x2="40" y2="44" stroke="#1c1a17" stroke-width="0.6"/>
-        </svg>
-      </div>
-      <div class="g-overlay">
-        <div class="g-overlay-content">
-          <div class="g-tag">Indumentaria</div>
-          <div class="g-name">Tejidos en lana<br>Diseño local</div>
-        </div>
+        <img src="img/productos/LUV-16-2.webp" alt="Producto · visualuv" loading="lazy">
       </div>
     </div>
 
     <div class="g-item">
       <div class="g-inner">
-        <svg width="65" height="65" viewBox="0 0 65 65" fill="none" class="prod-icon">
-          <circle cx="32" cy="32" r="24" stroke="#c8823a" stroke-width="1.2"/>
-          <circle cx="32" cy="32" r="14" stroke="#c8823a" stroke-width="0.8"/>
-          <line x1="32" y1="8" x2="32" y2="14" stroke="#c8823a" stroke-width="1"/>
-          <line x1="32" y1="50" x2="32" y2="56" stroke="#c8823a" stroke-width="1"/>
-          <line x1="8" y1="32" x2="14" y2="32" stroke="#c8823a" stroke-width="1"/>
-          <line x1="50" y1="32" x2="56" y2="32" stroke="#c8823a" stroke-width="1"/>
-        </svg>
+        <img src="img/productos/LUV-19.webp" alt="Producto · visualuv" loading="lazy">
       </div>
-      <div class="g-overlay">
-        <div class="g-overlay-content">
-          <div class="g-tag">Bienestar</div>
-          <div class="g-name">Aceites esenciales<br>Patagonia Herbs</div>
-        </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-22.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-25.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-26.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-32.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-35.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-39.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-44.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-45.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-116.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/IMG_7012.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/IMG_7036.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/IMG_7043.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/IMG_7056.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-6.webp" alt="Producto · visualuv" loading="lazy">
+      </div>
+    </div>
+
+    <div class="g-item">
+      <div class="g-inner">
+        <img src="img/productos/LUV-6-2.webp" alt="Producto · visualuv" loading="lazy">
       </div>
     </div>
 
@@ -1690,260 +962,6 @@
 </div><!-- /view-productos -->
 
 
-<script>
-  // ─── CURSOR ───
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-  });
-  (function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  })();
-
-  // ─── INDEX OVERLAY ───
-  const viewIndex = document.getElementById('view-index');
-
-  function showIndex() {
-    // Posicionar arriba sin transición, luego animar hacia abajo
-    viewIndex.classList.add('hiding');
-    viewIndex.classList.remove('hidden');
-    document.body.classList.add('index-open');
-    viewIndex.offsetHeight; // force reflow
-    viewIndex.classList.remove('hiding');
-    history.pushState(null, '', '#');
-  }
-
-  function hideIndex(targetView) {
-    viewIndex.classList.add('hiding');
-    document.body.classList.remove('index-open');
-    viewIndex.addEventListener('transitionend', function handler(e) {
-      if (e.propertyName !== 'transform') return;
-      viewIndex.classList.add('hidden');
-      viewIndex.removeEventListener('transitionend', handler);
-    });
-    switchView(targetView, true);
-  }
-
-  // Panel clicks
-  viewIndex.querySelectorAll('[data-goto]').forEach(panel => {
-    panel.addEventListener('click', () => {
-      hideIndex(panel.getAttribute('data-goto'));
-    });
-  });
-
-  // Logo click → show index
-  document.querySelector('.nav-logo').addEventListener('click', e => {
-    e.preventDefault();
-    showIndex();
-  });
-
-  // ─── REVEAL OBSERVER ───
-  let revealObserver = null;
-  function initReveal(viewEl) {
-    if (revealObserver) revealObserver.disconnect();
-    revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    viewEl.querySelectorAll('.reveal').forEach(el => {
-      // Re-observe even already-visible elements when switching views
-      revealObserver.observe(el);
-    });
-  }
-
-  // ─── NAV ACTIVE LINK HIGHLIGHT (scroll-based, per view) ───
-  function updateNavActive(viewEl, linksEl) {
-    const sections = viewEl.querySelectorAll('section[id]');
-    const links    = linksEl.querySelectorAll('a');
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    links.forEach(a => {
-      const href = a.getAttribute('href');
-      a.style.color = href === '#' + current ? 'var(--tierra)' : '';
-    });
-  }
-
-  // ─── VIEW SWITCHING ───
-  const viewOrder = ['eventos', 'productos']; // define la dirección izq→derecha
-  let activeViewName = null; // null = primera carga, sin animación
-
-  const views = {
-    eventos:  document.getElementById('view-eventos'),
-    productos: document.getElementById('view-productos')
-  };
-  const tabEventos   = document.getElementById('tabEventos');
-  const tabProductos = document.getElementById('tabProductos');
-  const navLinksEventos   = document.getElementById('navLinksEventos');
-  const navLinksProductos = document.getElementById('navLinksProductos');
-  const navLogoSub = document.getElementById('navLogoSub');
-  const navCta     = document.querySelector('.nav-cta');
-
-  const viewConfig = {
-    eventos: {
-      tab:       tabEventos,
-      otherTab:  tabProductos,
-      links:     navLinksEventos,
-      otherLinks: navLinksProductos,
-      logoSub:   'Eventos',
-      ctaText:   'Cotizar',
-      ctaHref:   '#contacto'
-    },
-    productos: {
-      tab:       tabProductos,
-      otherTab:  tabEventos,
-      links:     navLinksProductos,
-      otherLinks: navLinksEventos,
-      logoSub:   'Foto Producto',
-      ctaText:   'Cotizar',
-      ctaHref:   '#contacto'
-    }
-  };
-
-  const ANIM_CLASSES = ['anim-enter-right','anim-enter-left','anim-exit-left','anim-exit-right'];
-
-  function switchView(name, pushState) {
-    const cfg = viewConfig[name];
-    if (!cfg) return;
-
-    const goingRight = viewOrder.indexOf(name) > viewOrder.indexOf(activeViewName);
-    const shouldAnim = activeViewName !== null && activeViewName !== name;
-    const outView    = activeViewName ? views[activeViewName] : null;
-
-    // ── Animate out the current view ──
-    if (shouldAnim && outView) {
-      const exitClass = goingRight ? 'anim-exit-left' : 'anim-exit-right';
-      outView.classList.remove('active');
-      ANIM_CLASSES.forEach(c => outView.classList.remove(c));
-      outView.classList.add(exitClass);
-      outView.addEventListener('animationend', function h() {
-        outView.classList.remove(exitClass);
-        outView.removeEventListener('animationend', h);
-      }, { once: true });
-    } else {
-      Object.keys(views).forEach(k => {
-        views[k].classList.remove('active');
-        ANIM_CLASSES.forEach(c => views[k].classList.remove(c));
-      });
-    }
-
-    // ── Animate in the new view ──
-    activeViewName = name;
-    ANIM_CLASSES.forEach(c => views[name].classList.remove(c));
-    views[name].classList.add('active');
-    if (shouldAnim) {
-      const enterClass = goingRight ? 'anim-enter-right' : 'anim-enter-left';
-      views[name].classList.add(enterClass);
-      views[name].addEventListener('animationend', function h() {
-        views[name].classList.remove(enterClass);
-        views[name].removeEventListener('animationend', h);
-      }, { once: true });
-    }
-
-    // Update nav-links visibility
-    navLinksEventos.classList.remove('nav-links-visible');
-    navLinksProductos.classList.remove('nav-links-visible');
-    cfg.links.classList.add('nav-links-visible');
-
-    // Update tab styles
-    cfg.tab.classList.remove('nav-tab-inactive');
-    cfg.tab.classList.add('nav-tab-' + name + '-active');
-    cfg.otherTab.classList.remove('nav-tab-' + (name === 'eventos' ? 'productos' : 'eventos') + '-active');
-    cfg.otherTab.classList.add('nav-tab-inactive');
-
-    // Update logo sub-text
-    navLogoSub.textContent = cfg.logoSub;
-
-    // Update CTA
-    navCta.textContent = cfg.ctaText;
-    navCta.href = cfg.ctaHref;
-
-    // Update hash without scrolling to top
-    if (pushState) {
-      history.pushState(null, '', '#' + name);
-    }
-
-    // Scroll to top of page
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
-    // Re-run reveal observer on the newly active view
-    initReveal(views[name]);
-  }
-
-  // ─── TAB CLICK HANDLERS ───
-  [tabEventos, tabProductos].forEach(tab => {
-    tab.addEventListener('click', e => {
-      e.preventDefault();
-      const viewName = tab.getAttribute('data-view');
-      switchView(viewName, true);
-    });
-  });
-
-  // Handle footer "← Volver a Eventos" link in productos view
-  document.querySelectorAll('[data-view]').forEach(el => {
-    if (el === tabEventos || el === tabProductos) return; // already handled
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      const viewName = el.getAttribute('data-view');
-      switchView(viewName, true);
-    });
-  });
-
-  // ─── NAV SECTION LINKS: scroll dentro de la view activa ───
-  document.querySelectorAll('.nav-links a, .nav-cta').forEach(link => {
-    link.addEventListener('click', e => {
-      const href = link.getAttribute('href');
-      if (!href || !href.startsWith('#')) return;
-      const id = href.slice(1);
-      if (id === 'eventos' || id === 'productos') return; // handled by tabs
-      const activeViewName = views.eventos.classList.contains('active') ? 'eventos' : 'productos';
-      const target = views[activeViewName].querySelector('#' + id);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // ─── SCROLL: nav active link highlight ───
-  window.addEventListener('scroll', () => {
-    const activeViewName = views.eventos.classList.contains('active') ? 'eventos' : 'productos';
-    const activeLinksEl = activeViewName === 'eventos' ? navLinksEventos : navLinksProductos;
-    updateNavActive(views[activeViewName], activeLinksEl);
-  });
-
-  // ─── INIT: read hash on load ───
-  (function init() {
-    const hash = location.hash.replace('#', '');
-    if (hash === 'eventos' || hash === 'productos') {
-      viewIndex.classList.add('hidden');
-      document.body.classList.remove('index-open');
-      switchView(hash, false);
-    } else {
-      document.body.classList.add('index-open');
-      switchView('eventos', false); // prepare eventos view underneath
-    }
-  })();
-
-  // ─── HANDLE BROWSER BACK/FORWARD ───
-  window.addEventListener('popstate', () => {
-    const hash = location.hash.replace('#', '');
-    const v = (hash === 'productos') ? 'productos' : 'eventos';
-    switchView(v, false);
-  });
-</script>
+<script src="main.js"></script>
 </body>
 </html>
