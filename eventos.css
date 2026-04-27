@@ -210,9 +210,42 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* ─── CTA WHATSAPP ─── */
+.cta-wa {
+  background: var(--studio);
+  border-top: 1px solid rgba(28,26,23,0.07);
+  border-bottom: 1px solid rgba(28,26,23,0.07);
+  padding: 28px 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.cta-wa-text {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+}
+.cta-wa-btn {
+  font-family: var(--font-display);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--arena);
+  background: var(--bosque);
+  padding: 12px 22px;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 9px;
+  white-space: nowrap;
+  transition: background .2s, transform .2s;
+  flex-shrink: 0;
+}
+.cta-wa-btn:hover { background: var(--bosque-hover); transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+  .cta-wa { flex-direction: column; align-items: flex-start; padding: 24px 28px; }
+}
+
 /* ─── PROCESO EVENTOS ─── */
 #view-eventos #proceso {
-  padding: 120px 56px;
+  padding: 80px 56px;
   background: var(--tierra);
   position: relative; overflow: hidden;
 }
@@ -231,7 +264,7 @@
 }
 .proceso-steps {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 0; margin-top: 60px; position: relative; z-index: 1;
+  gap: 0; margin-top: 0; position: relative; z-index: 1;
 }
 .proceso-step {
   padding: 32px 28px 32px 0;
