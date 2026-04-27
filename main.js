@@ -251,3 +251,49 @@ window.addEventListener('popstate', () => {
   const v = (hash === 'productos') ? 'productos' : 'eventos';
   switchView(v, false);
 });
+
+// ─── TYPOGRAPHY SWITCHER ───
+const typoMap = { mono: null, clasica: 'clasica', geo: 'geo', suave: 'suave' };
+
+document.querySelectorAll('.nav-typo-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.getAttribute('data-typo');
+    document.documentElement.setAttribute('data-typo', typoMap[t] || '');
+    if (!typoMap[t]) document.documentElement.removeAttribute('data-typo');
+    document.querySelectorAll('.nav-typo-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    localStorage.setItem('typo', t);
+  });
+});
+
+// restore saved preference
+(function restoreTypo() {
+  const saved = localStorage.getItem('typo');
+  if (saved && saved !== 'mono') {
+    const btn = document.querySelector('.nav-typo-btn[data-typo="' + saved + '"]');
+    if (btn) btn.click();
+  }
+})();
+
+// ─── COLOR SWITCHER ───
+document.querySelectorAll('.nav-color-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const c = btn.getAttribute('data-color');
+    if (c === 'default') {
+      document.documentElement.removeAttribute('data-color');
+    } else {
+      document.documentElement.setAttribute('data-color', c);
+    }
+    document.querySelectorAll('.nav-color-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    localStorage.setItem('color', c);
+  });
+});
+
+(function restoreColor() {
+  const saved = localStorage.getItem('color');
+  if (saved && saved !== 'default') {
+    const btn = document.querySelector('.nav-color-btn[data-color="' + saved + '"]');
+    if (btn) btn.click();
+  }
+})();

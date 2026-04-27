@@ -5,53 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VISUALUV — Fotografía · El Bolsón</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,200;0,300;0,400;1,300&family=Spectral:ital,wght@0,300;0,400;0,700;1,300&family=Jost:wght@300;400;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="stylesheet" href="views.css">
 <link rel="stylesheet" href="eventos.css">
 <link rel="stylesheet" href="productos.css">
 <link rel="stylesheet" href="index-overlay.css">
+<link rel="stylesheet" href="typo.css">
+<link rel="stylesheet" href="colores.css">
 </head>
-<body>
+<body data-typo="clasica" data-color="rosa">
 
 <!-- INDEX OVERLAY -->
 <div id="view-index">
-  <div class="index-top-bar">
-    <span>41°58'S 71°31'W · El Bolsón · Patagonia</span>
-    <span>© 2025 Visualuv</span>
-  </div>
-  <div class="index-center-logo">
-    <div class="index-center-logo-box">
-      <span class="index-logo-uv">UV</span>
-      <span class="index-logo-sub">Visual</span>
-    </div>
+  <div class="index-logo-wrap">
+    <img src="img/logovisualuv.png" class="index-logo" alt="VISUALUV">
   </div>
   <div class="panel-eventos" data-goto="eventos">
     <div class="panel-strip"></div>
-    <span class="panel-eventos-uv">UV</span>
     <div class="panel-eyebrow">Fotografía de eventos</div>
     <h2 class="panel-title">EVENTO.</h2>
-    <p class="panel-desc">Casamientos, festivales, cumpleaños y sesiones. Sin filtros, sin poses forzadas.</p>
-    <div class="panel-tags">
-      <span class="panel-tag">Casamientos</span>
-      <span class="panel-tag">Festivales</span>
-      <span class="panel-tag">Sesiones</span>
-      <span class="panel-tag">Fiestas</span>
-    </div>
-    <span class="panel-cta">Ver eventos →</span>
+    <span class="panel-cta">Ver →</span>
   </div>
   <div class="panel-producto" data-goto="productos">
-    <span class="panel-producto-uv">UV</span>
     <div class="panel-eyebrow">Fotografía de producto</div>
     <h2 class="panel-title">PRODUCTO.</h2>
-    <p class="panel-desc">Para emprendimientos y marcas de El Bolsón y la comarca. Artesanal, gastronómico, textil.</p>
-    <div class="panel-tags">
-      <span class="panel-tag">Artesanal</span>
-      <span class="panel-tag">Gastronomía</span>
-      <span class="panel-tag">Cosmética</span>
-      <span class="panel-tag">Indumentaria</span>
-    </div>
-    <span class="panel-cta">Ver producto →</span>
+    <span class="panel-cta">Ver →</span>
   </div>
 </div>
 
@@ -62,7 +41,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <span class="nav-logo-uv"><span>UV</span> VISUAL</span>
+    <img src="img/logovisualuv.png" class="nav-logo-img" alt="VISUALUV">
     <div class="nav-logo-slash"></div>
     <span class="nav-logo-sub" id="navLogoSub">Eventos</span>
   </a>
@@ -70,6 +49,7 @@
   <!-- Nav links: Eventos -->
   <div class="nav-links" id="navLinksEventos">
     <a href="#servicios">Servicios</a>
+    <a href="#coberturas">Precios</a>
     <a href="#galeria">Galería</a>
     <a href="#sobre">Nosotros</a>
   </div>
@@ -86,6 +66,7 @@
     <a href="#eventos" class="nav-tab" id="tabEventos" data-view="eventos">Eventos</a>
     <a href="#productos" class="nav-tab" id="tabProductos" data-view="productos">Producto</a>
   </div>
+
   <a href="#contacto" class="nav-cta" id="navCta">Contacto</a>
 </nav>
 
@@ -97,62 +78,41 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-tag">▲ El Bolsón · La Comarca · Fotografía de eventos</div>
-    <h1 class="hero-title">
-      <span class="line-accent">CADA EVENTO</span>
-      <span class="line-thin">tiene su propia luz.</span>
-    </h1>
+    <div class="hero-left-stripe"></div>
+    <h1 class="hero-title">FOTOGRAFÍA</h1>
+    <span class="hero-title-outline">EVENTOS.</span>
     <p class="hero-desc">
-      Fotografía de eventos en El Bolsón y la comarca.
-      Casamientos, fiestas, festivales y sesiones.
-      Sin filtros, sin poses forzadas.
+      Casamientos, fiestas, festivales y sesiones
+      en El Bolsón y la comarca.
     </p>
     <div class="hero-btns">
-      <a href="#galeria" class="btn-primary">Ver trabajos</a>
-      <a href="#contacto" class="btn-ghost">Reservar fecha</a>
+      <a href="#galeria" class="btn-dark">Ver trabajos</a>
+      <a href="#contacto" class="btn-outline-dark">Reservar fecha</a>
     </div>
   </div>
 
   <div class="hero-right">
-    <div class="hero-composition">
-      <div class="hero-line-v" style="left:33%"></div>
-      <div class="hero-line-v" style="left:66%"></div>
-      <div class="hero-bar" style="top:33%;height:1px;opacity:0.04"></div>
-      <div class="hero-bar" style="top:66%;height:1px;opacity:0.04"></div>
+    <div class="ev-composition">
+      <!-- Marcos superpuestos -->
+      <div class="ev-frame ev-frame--back"></div>
+      <div class="ev-frame ev-frame--mid"></div>
+      <div class="ev-frame ev-frame--main">
+        <img src="img/cumple/LUV-55.webp" alt="Evento">
+        <div class="ev-frame-grad"></div>
+      </div>
+      <!-- Marcas de registro -->
+      <div class="ev-reg ev-reg--tl"></div>
+      <div class="ev-reg ev-reg--tr"></div>
+      <div class="ev-reg ev-reg--bl"></div>
+      <div class="ev-reg ev-reg--br"></div>
+      <!-- Línea de exposición -->
+      <div class="ev-scan"></div>
+      <!-- Metadata -->
+      <span class="ev-meta ev-meta--side">VISUALUV · EL BOLSÓN · PATAGONIA</span>
+      <span class="ev-meta ev-meta--bot">41°58′S · 71°31′O</span>
+      <!-- Anillo apertura -->
+      <div class="ev-ring"></div>
     </div>
-    <div class="hero-strip"></div>
-    <div class="hero-uv-bg">UV</div>
-    <div class="hero-frame">
-      <img src="img/cumple/LUV-55.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
-    </div>
-    <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
-      <!-- Círculos concéntricos fondo -->
-      <circle cx="300" cy="400" r="320" fill="none" stroke="#1c1a17" stroke-width="0.8" opacity="0.08"/>
-      <circle cx="300" cy="400" r="240" fill="none" stroke="#1c1a17" stroke-width="0.8" opacity="0.08"/>
-      <circle cx="300" cy="400" r="160" fill="none" stroke="#3a6b5a" stroke-width="1"   opacity="0.22"/>
-      <circle cx="300" cy="400" r="80"  fill="none" stroke="#3a6b5a" stroke-width="1"   opacity="0.22"/>
-
-      <!-- Diagonales tipo visor -->
-      <line x1="0"   y1="0"   x2="600" y2="800" stroke="#1c1a17" stroke-width="0.6" opacity="0.07"/>
-      <line x1="600" y1="0"   x2="0"   y2="800" stroke="#1c1a17" stroke-width="0.6" opacity="0.07"/>
-
-      <!-- Cruz de registro en esquinas -->
-      <g stroke="#3a6b5a" stroke-width="1.2" opacity="0.5">
-        <line x1="24" y1="32" x2="24" y2="56"/><line x1="12" y1="44" x2="36" y2="44"/>
-        <line x1="576" y1="32" x2="576" y2="56"/><line x1="564" y1="44" x2="588" y2="44"/>
-        <line x1="24" y1="744" x2="24" y2="768"/><line x1="12" y1="756" x2="36" y2="756"/>
-        <line x1="576" y1="744" x2="576" y2="768"/><line x1="564" y1="756" x2="588" y2="756"/>
-      </g>
-
-      <!-- Arco de apertura tipo lente -->
-      <path d="M 180 400 A 120 120 0 0 1 420 400" fill="none" stroke="#1c1a17" stroke-width="1" opacity="0.1"/>
-      <path d="M 180 400 A 120 120 0 0 0 420 400" fill="none" stroke="#1c1a17" stroke-width="1" opacity="0.1"/>
-
-      <!-- Número de fotograma estilo película -->
-      <text x="44" y="76" font-family="monospace" font-size="8" fill="#3a6b5a" opacity="0.5" letter-spacing="2">001A</text>
-      <text x="530" y="76" font-family="monospace" font-size="8" fill="#3a6b5a" opacity="0.5" letter-spacing="2">UV</text>
-    </svg>
-    <div class="hero-coords">41°58'S 71°31'W · EL BOLSÓN · RÍO NEGRO</div>
   </div>
 </section>
 
@@ -180,73 +140,102 @@
 
 <!-- SERVICIOS -->
 <section id="servicios">
-  <div class="section-eyebrow reveal">Servicios</div>
-  <h2 class="section-title reveal">LO QUE<br>HACEMOS <em>bien.</em></h2>
   <div class="servicios-grid">
 
     <div class="servicio-card reveal">
-      <div class="serv-num">01 ·</div>
       <svg class="serv-icon" viewBox="0 0 40 40" fill="none">
-        <rect x="4" y="10" width="32" height="24" rx="1" stroke="#3a6b5a" stroke-width="1.5"/>
-        <circle cx="20" cy="22" r="5" stroke="#3a6b5a" stroke-width="1.5"/>
-        <path d="M14 10V8a2 2 0 012-2h8a2 2 0 012 2v2" stroke="#3a6b5a" stroke-width="1.5"/>
-        <circle cx="20" cy="22" r="2" fill="#3a6b5a"/>
+        <rect x="4" y="10" width="32" height="24" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="22" r="5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M14 10V8a2 2 0 012-2h8a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="22" r="2" fill="currentColor"/>
       </svg>
       <div class="serv-name">CASAMIENTOS</div>
-      <p class="serv-desc">El día más importante merece ser recordado sin poses ni artificios. Documentamos la emoción real, desde los preparativos hasta el último baile.</p>
-      <div class="serv-tags">
-        <span class="serv-tag">Cobertura completa</span>
-        <span class="serv-tag">Día completo</span>
-        <span class="serv-tag">Album digital</span>
-      </div>
-    </div>
+      <p class="serv-desc">El día más importante merece ser recordado. Documentamos la emoción real, desde los preparativos hasta el último baile.</p>    </div>
 
     <div class="servicio-card reveal">
-      <div class="serv-num">02 ·</div>
       <svg class="serv-icon" viewBox="0 0 40 40" fill="none">
-        <path d="M20 6L22.4 13.6H30.3L23.9 18.2L26.3 25.8L20 21.2L13.7 25.8L16.1 18.2L9.7 13.6H17.6L20 6Z" stroke="#3a6b5a" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M20 6L22.4 13.6H30.3L23.9 18.2L26.3 25.8L20 21.2L13.7 25.8L16.1 18.2L9.7 13.6H17.6L20 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
       </svg>
       <div class="serv-name">FESTIVALES<br>Y EVENTOS</div>
-      <p class="serv-desc">La energía de un festival, la magia de un evento cultural. Capturamos el espíritu del Bolsón y su comarca en cada celebración.</p>
-      <div class="serv-tags">
-        <span class="serv-tag">Multi-cobertura</span>
-        <span class="serv-tag">Prensa</span>
-        <span class="serv-tag">Redes sociales</span>
-      </div>
-    </div>
+      <p class="serv-desc">La energía de un festival, la magia de un evento cultural.</p>    </div>
 
     <div class="servicio-card reveal">
-      <div class="serv-num">03 ·</div>
       <svg class="serv-icon" viewBox="0 0 40 40" fill="none">
-        <rect x="6" y="4" width="22" height="32" rx="1" stroke="#3a6b5a" stroke-width="1.5"/>
-        <circle cx="17" cy="16" r="5" stroke="#3a6b5a" stroke-width="1.5"/>
-        <path d="M9 28h16M9 32h10" stroke="#3a6b5a" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M30 10l4 4-4 4" stroke="#3a6b5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="6" y="4" width="22" height="32" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="17" cy="16" r="5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M9 28h16M9 32h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M30 10l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div class="serv-name">SESIÓN DE<br>RETRATO</div>
-      <p class="serv-desc">Book personal, artístico o profesional. Sesiones de retrato, pareja, familia o grupo. Los paisajes únicos de la Patagonia como telón de fondo.</p>
-      <div class="serv-tags">
-        <span class="serv-tag">Retrato personal</span>
-        <span class="serv-tag">Retrato</span>
-        <span class="serv-tag">Exterior / Estudio</span>
-        <span class="serv-tag">1-3 horas</span>
-      </div>
-    </div>
+      <p class="serv-desc">Sesión personal, artística o profesional. Sesiones de retrato, pareja, familia o grupo. Los paisajes únicos de la Patagonia como telón de fondo.</p>    </div>
 
     <div class="servicio-card reveal">
-      <div class="serv-num">04 ·</div>
       <svg class="serv-icon" viewBox="0 0 40 40" fill="none">
-        <rect x="8" y="8" width="24" height="24" rx="1" stroke="#3a6b5a" stroke-width="1.5"/>
-        <path d="M8 20h24M20 8v24" stroke="#3a6b5a" stroke-width="1.5"/>
-        <rect x="12" y="12" width="7" height="7" fill="#3a6b5a" opacity="0.3"/>
+        <rect x="8" y="8" width="24" height="24" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 20h24M20 8v24" stroke="currentColor" stroke-width="1.5"/>
+        <rect x="12" y="12" width="7" height="7" fill="currentColor" opacity="0.3"/>
       </svg>
       <div class="serv-name">CUMPLEAÑOS<br>Y FIESTAS</div>
-      <p class="serv-desc">Desde un cumpleaños íntimo en el bosque hasta una fiesta grande. Guardamos la alegría con la misma dedicación de siempre.</p>
-      <div class="serv-tags">
-        <span class="serv-tag">Eventos sociales</span>
-        <span class="serv-tag">Entrega rápida</span>
-        <span class="serv-tag">Pack digital</span>
-      </div>
+      <p class="serv-desc">Desde un cumpleaños íntimo hasta una fiesta grande. Guardamos la alegría con la misma dedicación de siempre.</p>    </div>
+
+  </div>
+</section>
+
+<!-- COBERTURAS -->
+<section id="coberturas">
+  <h2 class="section-title reveal"><em>Precios.</em></h2>
+  <div class="paquetes-grid">
+
+    <div class="paquete reveal">
+      <div class="paq-tag">Cobertura express</div>
+      <div class="paq-name">EXPRESS</div>
+      <div class="paq-cant">40 minutos · 35–40 fotos editadas</div>
+      <ul class="paq-items">
+        <li>Fotos del momento de torta y brindis</li>
+        <li>Retratos grupales</li>
+        <li>Edición incluida</li>
+      </ul>
+      <div class="paq-precio">$50.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
+    </div>
+
+    <div class="paquete reveal" style="transition-delay:.07s">
+      <div class="paq-tag">1 hora</div>
+      <div class="paq-name">UNA HORA</div>
+      <div class="paq-cant">1 hora · aprox. 70 fotos editadas</div>
+      <ul class="paq-items">
+        <li>Fotos espontáneas y retratos grupales</li>
+        <li>Momento de torta y brindis</li>
+        <li>Edición incluida</li>
+      </ul>
+      <div class="paq-precio">$60.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
+    </div>
+
+    <div class="paquete paquete-featured reveal" style="transition-delay:.14s">
+      <div class="paq-tag">Más elegida</div>
+      <div class="paq-name">CLÁSICA</div>
+      <div class="paq-cant">2 horas · 100–120 fotos editadas</div>
+      <ul class="paq-items">
+        <li>Fotos casuales y espontáneas</li>
+        <li>Retratos familiares y grupales</li>
+        <li>Momento de torta y brindis</li>
+      </ul>
+      <div class="paq-precio">$100.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
+    </div>
+
+    <div class="paquete reveal" style="transition-delay:.21s">
+      <div class="paq-tag">Cobertura extendida</div>
+      <div class="paq-name">EXTENDIDA</div>
+      <div class="paq-cant">4 horas · 180–240 fotos editadas</div>
+      <ul class="paq-items">
+        <li>Registro completo: recepción, brindis y fiesta</li>
+        <li>Fotos espontáneas + retratos organizados</li>
+        <li>Edición profesional incluida</li>
+      </ul>
+      <div class="paq-precio">$200.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
     </div>
 
   </div>
@@ -254,8 +243,7 @@
 
 <!-- PROCESO -->
 <section id="proceso">
-  <div class="section-eyebrow reveal">Cómo trabajamos</div>
-  <h2 class="section-title reveal">EL PROCESO<br><em>sin vueltas.</em></h2>
+  <h2 class="section-title reveal">EL <em>proceso.</em></h2>
   <div class="proceso-steps">
     <div class="proceso-step reveal">
       <div class="paso-num">01</div>
@@ -270,7 +258,7 @@
     <div class="proceso-step reveal" style="transition-delay:0.2s">
       <div class="paso-num">03</div>
       <div class="paso-name">EL DÍA</div>
-      <p class="paso-desc">Llego antes, me instalo, me quedo invisible. La cámara trabaja sola mientras vos disfrutás.</p>
+      <p class="paso-desc">Llego antes, me acomodo, me encargo de registrar el momento mientras vos disfrutás.</p>
     </div>
     <div class="proceso-step reveal" style="transition-delay:0.3s">
       <div class="paso-num">04</div>
@@ -283,65 +271,36 @@
 <!-- GALERÍA -->
 <section id="galeria">
   <div class="galeria-header">
-    <div class="section-eyebrow reveal">Trabajos</div>
     <h2 class="section-title reveal">ALGUNAS<br>FOTOS <em>recientes.</em></h2>
   </div>
   <div class="galeria-grid">
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-24.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-33.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-36.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-55.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-57.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-76.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
     <div class="galeria-item">
       <img src="img/cumple/LUV-104.webp" alt="Cumpleaños · El Bolsón">
-      <div class="galeria-item-overlay">
-        <div class="galeria-overlay-tag">Cumpleaños</div>
-        <div class="galeria-overlay-title">El Bolsón · 2024</div>
-      </div>
     </div>
 
   </div>
@@ -351,53 +310,16 @@
 <section id="sobre">
   <div class="sobre-foto reveal">
     <div class="sobre-foto-stripe"></div>
-    <div class="sobre-foto-placeholder">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-        <rect x="4" y="16" width="72" height="52" rx="2" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-        <circle cx="40" cy="42" r="14" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-        <circle cx="40" cy="42" r="6" fill="#3a6b5a" opacity="0.2"/>
-        <path d="M28 16V12a4 4 0 014-4h16a4 4 0 014 4v4" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-      </svg>
-    </div>
-    <!-- Datos superpuestos abajo izq -->
-    <div style="position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(to top,rgba(22,20,16,0.9) 0%,transparent 100%)">
-      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--bosque);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:4px">Artista</div>
-      <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--arena)">VISUALUV</div>
-    </div>
+    <img src="img/profile.jpg" alt="Lucía Rocca — VISUALUV" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
   </div>
-
   <div class="reveal">
-    <div class="sobre-nombre">▲ El Bolsón · Patagonia</div>
-    <p class="sobre-texto">
-      Soy fotógrafa de eventos radicada en El Bolsón.
-      Trabajo con luz natural, momentos reales y <em>muy pocas poses</em>.
-    </p>
-    <p class="sobre-texto" style="margin-top:16px">
-      Creo que las mejores fotos son las que no se sienten como fotos.
-      Las que te recuerdan cómo sonaba la música, cómo olía el bosque,
-      cómo se sentía ese momento exacto.
-    </p>
-    <p class="sobre-texto" style="margin-top:16px">
-      <em>La comarca me enseñó a ver la luz de otra manera.</em>
-    </p>
-    <div class="sobre-stats">
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">200+</span>
-        <span class="sobre-stat-label">Eventos cubiertos</span>
-      </div>
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">5</span>
-        <span class="sobre-stat-label">Años en el Bolsón</span>
-      </div>
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">∞</span>
-        <span class="sobre-stat-label">Momentos guardados</span>
-      </div>
-    </div>
+    <p class="sobre-texto">Soy Lucía, fotógrafa y artista audiovisual radicada en El Bolsón.</p>
+    <p class="sobre-texto" style="margin-top:16px">Creo imágenes que combinan sensibilidad, estética y narrativa visual, tanto para proyectos personales como para emprendimientos.</p>
+    <p class="sobre-texto" style="margin-top:16px">Trabajo en retratos, fotografía/video de producto y cobertura de eventos, creando contenido visual y audiovisual para redes, marcas y proyectos personales. Adapto cada propuesta a la identidad de quien está delante de la cámara.</p>
     <div class="sobre-firma">
-      <span>@visualuv.foto</span>
+      <span>@visualuv_</span>
       <span>·</span>
-      <span>Río Negro · Argentina</span>
+      <span>visualuv44@gmail.com</span>
     </div>
   </div>
 </section>
@@ -407,22 +329,16 @@
   <div class="contacto-inner">
     <div class="contacto-left">
       <h2 class="contacto-title">¿TENÉS<br>UNA FECHA?</h2>
-      <p class="contacto-sub">Escribime, te respondo en menos de 24 horas. Las fechas se agotan rápido, especialmente en verano.</p>
+      <p class="contacto-sub">Escribime, te respondo en menos de 24 horas.</p>
 
       <div class="contacto-links">
-        <div class="contacto-link" onclick="window.location='mailto:hola@visualuv.com'">
-          <span class="cl-label">Email</span>
-          <span class="cl-value">hola@visualuv.com</span>
+        <div class="contacto-link" onclick="window.location='mailto:visualuv44@gmail.com'"><span class="cl-value">visualuv44@gmail.com</span>
           <span class="cl-arrow">→</span>
         </div>
-        <div class="contacto-link" onclick="window.location='https://instagram.com/visualuv'">
-          <span class="cl-label">Instagram</span>
-          <span class="cl-value">@visualuv.foto</span>
+        <div class="contacto-link" onclick="window.location='https://instagram.com/visualuv_'"><span class="cl-value">@visualuv_</span>
           <span class="cl-arrow">→</span>
         </div>
-        <div class="contacto-link">
-          <span class="cl-label">Ubicación</span>
-          <span class="cl-value">El Bolsón · RN</span>
+        <div class="contacto-link"><span class="cl-value">El Bolsón · RN</span>
           <span class="cl-arrow">▲</span>
         </div>
       </div>
@@ -430,35 +346,11 @@
 
     <form class="contacto-form" onsubmit="return false">
       <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">Nombre</label>
-          <input class="form-input" type="text" placeholder="Tu nombre">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" placeholder="tu@email.com">
-        </div>
+        <div class="form-field"><input class="form-input" type="text" placeholder="Tu nombre"></div>
+        <div class="form-field"><input class="form-input" type="email" placeholder="tu@email.com"></div>
       </div>
-      <div class="form-field">
-        <label class="form-label">Tipo de evento</label>
-        <select class="form-select">
-          <option value="" disabled selected>Seleccioná...</option>
-          <option>Casamiento</option>
-          <option>Festival / Evento cultural</option>
-          <option>Cumpleaños / Fiesta</option>
-          <option>Sesión de retrato</option>
-          <option>Sesión familiar / pareja</option>
-          <option>Otro</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label class="form-label">Fecha tentativa</label>
-        <input class="form-input" type="text" placeholder="Ej: Marzo 2025">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Contame del evento</label>
-        <textarea class="form-textarea" placeholder="Lugar, cantidad de personas, qué necesitás..."></textarea>
-      </div>
+      <div class="form-field"><input class="form-input" type="text" placeholder="Fecha tentativa"></div>
+      <div class="form-field"><textarea class="form-textarea" placeholder="Contame del evento..."></textarea></div>
       <button class="form-submit" type="submit">Enviar consulta ▲</button>
     </form>
   </div>
@@ -466,9 +358,8 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span>UV</span> VISUAL</div>
-  <div class="footer-copy">© 2025 Visualuv · Todos los derechos reservados</div>
-  <div class="footer-place">▲ El Bolsón · Patagonia · Argentina</div>
+  <div class="footer-logo">VISUALUV</div>
+  <div class="footer-place">El Bolsón · Patagonia</div>
 </footer>
 
 </div><!-- /view-eventos -->
@@ -483,7 +374,6 @@
 <section id="hero">
   <div class="hero-left">
     <div class="hero-left-stripe"></div>
-    <div class="hero-eyebrow">Foto producto · El Bolsón</div>
     <h1 class="hero-title">PRODUCTO.</h1>
     <p class="hero-desc">
       Fotografía de producto para emprendimientos y marcas de El Bolsón y la comarca.
@@ -506,10 +396,7 @@
         <img src="img/productos/IMG_7012.webp" alt="Fotografía de producto · visualuv">
         <div class="studio-shadow"></div>
       </div>
-      <span class="studio-label" style="top:12px;left:36px">COMPOSICIÓN</span>
-      <span class="studio-label" style="bottom:20px;right:10px">STUDIO · EXTERIOR</span>
     </div>
-    <div class="hero-right-tag">41°58'S · EL BOLSÓN</div>
   </div>
 </section>
 
@@ -535,116 +422,107 @@
 
 <!-- PARA QUIÉN -->
 <section id="para-quien">
-  <div class="section-eyebrow reveal">Para quién</div>
-  <h2 class="section-title reveal">MARCAS QUE<br>HACEN COSAS <em>reales.</em></h2>
   <div class="clientes-grid">
 
     <div class="cliente-card reveal">
       <svg class="cliente-icon" viewBox="0 0 36 36" fill="none">
-        <path d="M6 28l4-8 5 4 5-10 5 6 5-4" stroke="#3a6b5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="4" y="6" width="28" height="22" rx="1" stroke="#3a6b5a" stroke-width="1.5"/>
+        <path d="M6 28l4-8 5 4 5-10 5 6 5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="4" y="6" width="28" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/>
       </svg>
       <div class="cliente-name">PRODUCTOS<br>ARTESANALES</div>
-      <p class="cliente-desc">Mermeladas, chocolates, cervezas artesanales, conservas, productos de la feria.</p>
-      <div class="cliente-ej">Ej: Feria Artesanal · Cervecerías · Bodega</div>
-    </div>
+      <p class="cliente-desc">Mermeladas, chocolates, cervezas artesanales, conservas, productos de la feria.</p>    </div>
 
     <div class="cliente-card reveal" style="transition-delay:.08s">
       <svg class="cliente-icon" viewBox="0 0 36 36" fill="none">
-        <path d="M10 14c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#3a6b5a" stroke-width="1.5"/>
-        <path d="M6 14h24l-2 16H8L6 14z" stroke="#3a6b5a" stroke-width="1.5" stroke-linejoin="round"/>
-        <line x1="14" y1="14" x2="14" y2="22" stroke="#3a6b5a" stroke-width="1"/>
-        <line x1="22" y1="14" x2="22" y2="22" stroke="#3a6b5a" stroke-width="1"/>
+        <path d="M10 14c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M6 14h24l-2 16H8L6 14z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <line x1="14" y1="14" x2="14" y2="22" stroke="currentColor" stroke-width="1"/>
+        <line x1="22" y1="14" x2="22" y2="22" stroke="currentColor" stroke-width="1"/>
       </svg>
       <div class="cliente-name">ROPA &<br>ACCESORIOS</div>
-      <p class="cliente-desc">Prendas de lana, tejidos, indumentaria de montaña, accesorios artesanales.</p>
-      <div class="cliente-ej">Ej: Diseñadoras · Tejedoras · Tiendas</div>
-    </div>
+      <p class="cliente-desc">Prendas de lana, tejidos, indumentaria de montaña, accesorios artesanales.</p>    </div>
 
     <div class="cliente-card reveal" style="transition-delay:.16s">
       <svg class="cliente-icon" viewBox="0 0 36 36" fill="none">
-        <path d="M18 6C13 6 9 10 9 15c0 6 9 15 9 15s9-9 9-15c0-5-4-9-9-9z" stroke="#3a6b5a" stroke-width="1.5"/>
-        <circle cx="18" cy="15" r="3" stroke="#3a6b5a" stroke-width="1.5"/>
+        <path d="M18 6C13 6 9 10 9 15c0 6 9 15 9 15s9-9 9-15c0-5-4-9-9-9z" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="18" cy="15" r="3" stroke="currentColor" stroke-width="1.5"/>
       </svg>
       <div class="cliente-name">COSMÉTICA<br>& BIENESTAR</div>
-      <p class="cliente-desc">Cosméticos naturales, aceites esenciales, jabones, productos de autocuidado del territorio.</p>
-      <div class="cliente-ej">Ej: Laboratorios naturales · Herboristerías</div>
-    </div>
+      <p class="cliente-desc">Cosméticos naturales, aceites esenciales, jabones, productos de autocuidado del territorio.</p>    </div>
 
     <div class="cliente-card reveal" style="transition-delay:.24s">
       <svg class="cliente-icon" viewBox="0 0 36 36" fill="none">
-        <rect x="6" y="10" width="24" height="18" rx="1" stroke="#3a6b5a" stroke-width="1.5"/>
-        <path d="M6 16h24" stroke="#3a6b5a" stroke-width="1"/>
-        <path d="M14 10V8a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#3a6b5a" stroke-width="1.5"/>
-        <circle cx="18" cy="22" r="2" fill="#3a6b5a" opacity=".4"/>
+        <rect x="6" y="10" width="24" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M6 16h24" stroke="currentColor" stroke-width="1"/>
+        <path d="M14 10V8a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="18" cy="22" r="2" fill="currentColor" opacity=".4"/>
       </svg>
       <div class="cliente-name">EMPRENDIMIENTOS<br>LOCALES</div>
-      <p class="cliente-desc">Cualquier producto de El Bolsón y la comarca que quiera estar mejor en Instagram, tiendas online o catálogos.</p>
-      <div class="cliente-ej">Ej: Mercado Pago · Tienda Nube · IG Shop</div>
-    </div>
+      <p class="cliente-desc">Cualquier producto de El Bolsón y la comarca que quiera estar mejor en Instagram, tiendas online o catálogos.</p>    </div>
 
   </div>
 </section>
 
 <!-- QUÉ INCLUYE -->
 <section id="incluye">
-  <div class="section-eyebrow reveal">Paquetes</div>
-  <h2 class="section-title reveal">ELEGÍS<br>LO QUE <em>necesitás.</em></h2>
+  <h2 class="section-title reveal"><em>Precios.</em></h2>
   <div class="paquetes-grid">
 
     <div class="paquete reveal">
-      <div class="paq-tag">01 · Básico</div>
-      <div class="paq-name">INICIO</div>
-      <div class="paq-cant">5 productos · hasta 3 fotos c/u</div>
+      <div class="paq-tag">Pack básico</div>
+      <div class="paq-name">BÁSICO</div>
+      <div class="paq-cant">Hasta 5 productos · 5–7 fotos editadas</div>
       <ul class="paq-items">
-        <li>Sesión de 2 horas en locación</li>
-        <li>Fondo neutro + props básicos</li>
-        <li>Edición color y retoque</li>
-        <li>Entrega en 7 días</li>
-        <li>Galería online para descarga</li>
+        <li>1 foto por producto con fondo simple</li>
+        <li>Iluminación básica de estudio</li>
+        <li>Edición incluida</li>
       </ul>
-      <a href="#contacto" class="paq-cta">Consultar precio →</a>
+      <div class="paq-precio">$45.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
     </div>
 
     <div class="paquete paquete-featured reveal" style="transition-delay:.1s">
-      <div class="paq-tag">02 · Más elegido</div>
-      <div class="paq-name">MARCA</div>
-      <div class="paq-cant">15 productos · hasta 5 fotos c/u</div>
+      <div class="paq-tag">Más elegido</div>
+      <div class="paq-name">CATÁLOGO</div>
+      <div class="paq-cant">Hasta 10 productos · 15–20 fotos editadas</div>
       <ul class="paq-items">
-        <li>Sesión de medio día</li>
-        <li>Studio + locación exterior patagónica</li>
-        <li>Moodboard previo acordado</li>
-        <li>Props y composición incluidos</li>
-        <li>Edición completa + variantes</li>
-        <li>Video corto para redes (bonus)</li>
-        <li>Entrega en 10 días</li>
+        <li>1–2 fotos por producto, distintos ángulos</li>
+        <li>Fondo blanco o neutro ideal e-commerce</li>
+        <li>Edición profesional: color, limpieza, detalle</li>
       </ul>
-      <a href="#contacto" class="paq-cta">Consultar precio →</a>
+      <div class="paq-precio">$90.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
     </div>
 
     <div class="paquete reveal" style="transition-delay:.2s">
-      <div class="paq-tag">03 · Completo</div>
-      <div class="paq-name">CATÁLOGO</div>
-      <div class="paq-cant">Colección completa · sin límite</div>
+      <div class="paq-tag">Pack branding</div>
+      <div class="paq-name">BRANDING</div>
+      <div class="paq-cant">Hasta 15 productos · 30–40 fotos editadas</div>
       <ul class="paq-items">
-        <li>Planificación full + moodboard</li>
-        <li>Día completo de producción</li>
-        <li>Múltiples locaciones y ambientes</li>
-        <li>Fotos de estilo de vida incluidas</li>
-        <li>Edición y dirección de arte</li>
-        <li>Entrega en 15 días</li>
-        <li>Licencia comercial ampliada</li>
+        <li>Fotos lifestyle con ambientación</li>
+        <li>Composición creativa + storytelling visual</li>
+        <li>Ideal para redes sociales y marca</li>
       </ul>
-      <a href="#contacto" class="paq-cta">Consultar precio →</a>
+      <div class="paq-precio">$160.000</div>
+      <a href="#contacto" class="paq-cta">Cotizar →</a>
     </div>
 
+  </div>
+
+  <div class="paq-extras reveal">
+    <div class="paq-extras-title">Extras</div>
+    <div class="paq-extras-grid">
+      <div class="paq-extra-item"><span>Foto adicional</span><span>$4.000 c/u</span></div>
+      <div class="paq-extra-item"><span>Fondo personalizado / escenografía</span><span>+$20.000</span></div>
+      <div class="paq-extra-item"><span>Entrega express (48 hs)</span><span>+20%</span></div>
+      <div class="paq-extra-item"><span>Video corto para redes (reel)</span><span>Consultar</span></div>
+    </div>
   </div>
 </section>
 
 <!-- GALERÍA -->
 <section id="galeria">
   <div class="galeria-header">
-    <div class="section-eyebrow reveal">Trabajos</div>
     <h2 class="section-title reveal">PRODUCTOS<br>DE <em>la comarca.</em></h2>
   </div>
   <div class="prod-galeria-grid">
@@ -774,97 +652,49 @@
 
 <!-- CÓMO FUNCIONA -->
 <section id="como">
-  <div class="section-eyebrow reveal">Proceso</div>
-  <h2 class="section-title reveal">SIN VUELTAS,<br>SIN <em>sorpresas.</em></h2>
-  <div class="como-grid">
-    <div class="como-left reveal">
-      <p class="como-quote">"Trabajo con marcas que creen en lo que hacen. El producto ya es bueno — yo solo lo hago ver como merece."</p>
-      <div class="como-firma">— visualuv · El Bolsón</div>
-    </div>
-    <div class="como-steps">
+  <h2 class="section-title reveal">EL <em>proceso.</em></h2>
+  <div class="como-steps">
       <div class="como-step reveal">
         <div class="cs-num">01</div>
         <div class="cs-content">
           <div class="cs-title">ME MANDÁS TUS PRODUCTOS</div>
-          <p class="cs-desc">Me contás qué tenés, cuántos productos son, para qué los necesitás (Instagram, tienda online, catálogo, packaging). Te hago un presupuesto en el día.</p>
-          <div class="cs-detail">Por WhatsApp, email o formulario abajo ↓</div>
-        </div>
+          <p class="cs-desc">Me contás qué tenés, cuántos productos son, para qué los necesitás (Instagram, tienda online, catálogo, packaging). Te hago un presupuesto en el día.</p>        </div>
       </div>
       <div class="como-step reveal">
         <div class="cs-num">02</div>
         <div class="cs-content">
           <div class="cs-title">ARMAMOS EL MOODBOARD</div>
-          <p class="cs-desc">Antes de la sesión acordamos el estilo, los fondos, los colores y la estética. Nada de sorpresas el día de la sesión.</p>
-          <div class="cs-detail">Referencias visuales · paleta · props</div>
-        </div>
+          <p class="cs-desc">Antes de la sesión acordamos el estilo, los fondos, los colores y la estética. Nada de sorpresas el día de la sesión.</p>        </div>
       </div>
       <div class="como-step reveal">
         <div class="cs-num">03</div>
         <div class="cs-content">
           <div class="cs-title">SESIÓN EN EL BOLSÓN</div>
-          <p class="cs-desc">Studio con luz controlada o locación exterior en la comarca, según el producto. La Patagonia como fondo es un diferencial que pocas marcas tienen.</p>
-          <div class="cs-detail">Studio · Exterior · Combinado</div>
-        </div>
+          <p class="cs-desc">Studio con luz controlada o locación exterior en la comarca, según el producto. La Patagonia como fondo es un diferencial que pocas marcas tienen.</p>        </div>
       </div>
       <div class="como-step reveal">
         <div class="cs-num">04</div>
         <div class="cs-content">
           <div class="cs-title">RECIBÍS TODO EDITADO</div>
-          <p class="cs-desc">Galería online para descarga en alta resolución. Imágenes listas para usar directamente en redes, web o impresión.</p>
-          <div class="cs-detail">7–15 días según paquete · RAW disponible</div>
-        </div>
+          <p class="cs-desc">Galería online para descarga en alta resolución. Imágenes listas para usar directamente en redes, web o impresión.</p>        </div>
       </div>
     </div>
-  </div>
 </section>
 
 <!-- NOSOTROS -->
 <section id="sobre">
   <div class="sobre-foto reveal">
     <div class="sobre-foto-stripe"></div>
-    <div class="sobre-foto-placeholder">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-        <rect x="4" y="16" width="72" height="52" rx="2" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-        <circle cx="40" cy="42" r="14" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-        <circle cx="40" cy="42" r="6" fill="#3a6b5a" opacity="0.2"/>
-        <path d="M28 16V12a4 4 0 014-4h16a4 4 0 014 4v4" stroke="#3a6b5a" stroke-width="1.5" opacity="0.4"/>
-      </svg>
-    </div>
-    <div style="position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(to top,rgba(22,20,16,0.9) 0%,transparent 100%)">
-      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--bosque);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:4px">Artista</div>
-      <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--arena)">VISUALUV</div>
-    </div>
+    <img src="img/profile.jpg" alt="Lucía Rocca — VISUALUV" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
   </div>
-
   <div class="reveal">
-    <div class="sobre-nombre">▲ El Bolsón · Patagonia</div>
-    <p class="sobre-texto">
-      Soy fotógrafa radicada en El Bolsón.
-      Trabajo con luz natural, momentos reales y <em>muy pocas poses</em>.
-    </p>
-    <p class="sobre-texto" style="margin-top:16px">
-      Para fotografía de producto, creo ambientes que hablan del origen del objeto:
-      la textura del lino, el color de las especias, la forma de una cerámica.
-      <em>Cada producto tiene su propia luz.</em>
-    </p>
-    <div class="sobre-stats">
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">80+</span>
-        <span class="sobre-stat-label">Marcas fotografiadas</span>
-      </div>
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">5</span>
-        <span class="sobre-stat-label">Años en el Bolsón</span>
-      </div>
-      <div class="sobre-stat">
-        <span class="sobre-stat-num">∞</span>
-        <span class="sobre-stat-label">Detalles capturados</span>
-      </div>
-    </div>
+    <p class="sobre-texto">Soy Lucía, fotógrafa y artista audiovisual radicada en El Bolsón.</p>
+    <p class="sobre-texto" style="margin-top:16px">Creo imágenes que combinan sensibilidad, estética y narrativa visual, tanto para proyectos personales como para emprendimientos.</p>
+    <p class="sobre-texto" style="margin-top:16px">Trabajo en retratos, fotografía/video de producto y cobertura de eventos, creando contenido visual y audiovisual para redes, marcas y proyectos personales. Adapto cada propuesta a la identidad de quien está delante de la cámara.</p>
     <div class="sobre-firma">
-      <span>@visualuv.foto</span>
+      <span>@visualuv_</span>
       <span>·</span>
-      <span>Río Negro · Argentina</span>
+      <span>visualuv44@gmail.com</span>
     </div>
   </div>
 </section>
@@ -876,19 +706,13 @@
       <h2 class="contacto-title">¿QUERÉS<br>COTIZAR?</h2>
       <p class="contacto-sub">Contame qué producto tenés y para qué lo necesitás. Te respondo con presupuesto en menos de 24 horas.</p>
       <div class="contacto-data">
-        <div class="cd-row" onclick="window.location='mailto:hola@visualuv.com'">
-          <span class="cd-label">Email</span>
-          <span class="cd-value">hola@visualuv.com</span>
+        <div class="cd-row" onclick="window.location='mailto:visualuv44@gmail.com'"><span class="cd-value">visualuv44@gmail.com</span>
           <span class="cd-arrow">→</span>
         </div>
-        <div class="cd-row" onclick="window.location='https://instagram.com/visualuv'">
-          <span class="cd-label">Instagram</span>
-          <span class="cd-value">@visualuv.foto</span>
+        <div class="cd-row" onclick="window.location='https://instagram.com/visualuv_'"><span class="cd-value">@visualuv_</span>
           <span class="cd-arrow">→</span>
         </div>
-        <div class="cd-row">
-          <span class="cd-label">Base</span>
-          <span class="cd-value">El Bolsón · RN</span>
+        <div class="cd-row"><span class="cd-value">El Bolsón · RN</span>
           <span class="cd-arrow">▲</span>
         </div>
       </div>
@@ -896,49 +720,18 @@
 
     <form class="contacto-form reveal" onsubmit="return false">
       <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label">Nombre / marca</label>
-          <input class="form-input" type="text" placeholder="Tu nombre o marca">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" placeholder="tu@email.com">
-        </div>
+        <div class="form-group"><input class="form-input" type="text" placeholder="Tu nombre o marca"></div>
+        <div class="form-group"><input class="form-input" type="email" placeholder="tu@email.com"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Tipo de producto</label>
-        <select class="form-select">
-          <option value="" disabled selected>Seleccioná...</option>
+      <div class="form-group"><select class="form-select">
+          <option value="" disabled selected>Tipo de producto</option>
           <option>Gastronomía / Artesanal</option>
           <option>Ropa y accesorios</option>
           <option>Cosmética / Bienestar</option>
-          <option>Otro emprendimiento</option>
+          <option>Otro</option>
         </select>
       </div>
-      <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label">Cantidad de productos</label>
-          <input class="form-input" type="text" placeholder="Ej: 8 productos">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Destino de las fotos</label>
-          <select class="form-select">
-            <option value="" disabled selected>Seleccioná...</option>
-            <option>Instagram / Redes</option>
-            <option>Tienda online</option>
-            <option>Catálogo / Impresión</option>
-            <option>Todos los anteriores</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Contame más</label>
-        <textarea class="form-textarea" placeholder="Estética que buscás, referencias, presupuesto aproximado..."></textarea>
-      </div>
-      <div class="form-check">
-        <input type="checkbox" id="exterior">
-        <label for="exterior">Me interesa incluir locación exterior patagónica (bosque, río, montaña)</label>
-      </div>
+      <div class="form-group"><textarea class="form-textarea" placeholder="Contame qué tenés y para qué lo necesitás..."></textarea></div>
       <button class="form-submit" type="submit">Enviar consulta ▲</button>
     </form>
   </div>
@@ -946,17 +739,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-left">
-    <div class="footer-logo"><span>UV</span> VISUAL</div>
-    <div class="footer-sep"></div>
-    <div class="footer-sub">Foto Producto</div>
-  </div>
+  <div class="footer-logo">VISUALUV</div>
   <div class="footer-links">
-    <a href="#eventos" data-view="eventos">← Volver a Eventos</a>
-    <a href="#para-quien">Servicios</a>
+    <a href="#eventos" data-view="eventos">← Eventos</a>
     <a href="#contacto">Contacto</a>
   </div>
-  <div class="footer-place">▲ El Bolsón · Patagonia</div>
 </footer>
 
 </div><!-- /view-productos -->

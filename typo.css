@@ -1,0 +1,60 @@
+/* ══════════════════════════════════════
+   TIPOGRAFÍA — temas intercambiables
+   ══════════════════════════════════════
+
+   MONO      (default) — Space Mono + DM Sans
+   CLÁSICA              — Playfair Display + Source Sans 3
+   GEO                  — Outfit + Inter
+   EXPRESIVA            — Anton + Nunito
+*/
+
+/* ─── MONO (default, sin clase extra) ─── */
+/* ya definido en :root dentro de shared.css */
+
+/* ─── SPECTRAL ─── */
+[data-typo="clasica"] {
+  --font-display: 'Spectral', serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+[data-typo="clasica"] .section-title        { letter-spacing: -0.02em; font-weight: 300; }
+[data-typo="clasica"] .hero-title,
+[data-typo="clasica"] #view-eventos .hero-title,
+[data-typo="clasica"] #view-productos .hero-title { font-weight: 300; letter-spacing: -0.025em; }
+[data-typo="clasica"] .hero-title-outline   { font-weight: 300; }
+[data-typo="clasica"] .panel-title          { font-weight: 300; letter-spacing: -0.02em; }
+[data-typo="clasica"] .contacto-title       { font-weight: 300; letter-spacing: -0.02em; }
+
+/* ─── JOST ─── */
+[data-typo="geo"] {
+  --font-display: 'Jost', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+[data-typo="geo"] .section-title            { letter-spacing: 0.01em; font-weight: 400; }
+[data-typo="geo"] .hero-title,
+[data-typo="geo"] #view-eventos .hero-title,
+[data-typo="geo"] #view-productos .hero-title { letter-spacing: -0.01em; font-weight: 700; }
+[data-typo="geo"] .panel-title              { letter-spacing: 0em; font-weight: 700; }
+[data-typo="geo"] .contacto-title           { letter-spacing: 0em; font-weight: 700; }
+[data-typo="geo"] .nav-logo-uv,
+[data-typo="geo"] .nav-tab,
+[data-typo="geo"] .nav-cta                  { letter-spacing: 0.1em; }
+
+/* ─── FRAUNCES / CABIN (alt. Sailors + Rotis) ─── */
+[data-typo="suave"] {
+  --font-display: 'Fraunces', serif;
+  --font-body:    'Cabin', sans-serif;
+}
+
+/* Fraunces es óptico y variable — pesos más ligeros para display */
+[data-typo="suave"] .section-title          { letter-spacing: -0.02em; font-weight: 300; }
+[data-typo="suave"] .hero-title,
+[data-typo="suave"] #view-eventos .hero-title,
+[data-typo="suave"] #view-productos .hero-title { font-weight: 300; letter-spacing: -0.025em; }
+[data-typo="suave"] .hero-title-outline     { font-weight: 300; letter-spacing: -0.025em; }
+[data-typo="suave"] .panel-title            { font-weight: 300; letter-spacing: -0.02em; }
+[data-typo="suave"] .contacto-title         { font-weight: 300; letter-spacing: -0.02em; }
+[data-typo="suave"] .nav-logo-uv,
+[data-typo="suave"] .nav-tab,
+[data-typo="suave"] .nav-cta                { letter-spacing: 0.03em; font-weight: 500; }

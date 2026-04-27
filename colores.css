@@ -1,0 +1,75 @@
+/* ══════════════════════════════════════
+   COLORES — temas de color intercambiables
+   ══════════════════════════════════════
+
+   DEFAULT  — tierra / bosque (actual)
+   VIOLETA  — púrpura profundo
+   ROSA     — rosa oscuro / blush
+   BORDO    — bordeaux / vino
+   NARANJA  — naranja suave / cálido
+*/
+
+/* ─── VIOLETA ─── */
+[data-color="violeta"] {
+  --bosque:      #7b5ea7;
+  --tierra:      #1c1828;
+  --arena:       #f2effa;
+  --otono:       #b88fd4;
+  --gris:        #6b6478;
+  --gris2:       #9a93a8;
+  --studio:      #f5f3fb;
+  --studio-dark: #ebe8f5;
+  --humo:        #e4e0f4;
+  --bosque-hover: #9575c2;
+  --tierra-hover: #2e2a3e;
+  --tierra-dark:  #282338;
+}
+
+/* ─── ROSA ─── */
+[data-color="rosa"] {
+  --bosque:      #c4547a;
+  --tierra:      #1f1519;
+  --arena:       #faf0f3;
+  --otono:       #e8957a;
+  --gris:        #7a6068;
+  --gris2:       #a89298;
+  --studio:      #fdf7f8;
+  --studio-dark: #f5e8ec;
+  --humo:        #f0dce2;
+  --bosque-hover: #d4688a;
+  --tierra-hover: #2e1f26;
+  --tierra-dark:  #2a1a20;
+}
+
+/* ─── BORDO ─── */
+[data-color="bordo"] {
+  --bosque:      #8b2d3f;
+  --tierra:      #1a0d10;
+  --arena:       #f5ede8;
+  --otono:       #c05040;
+  --gris:        #6b5652;
+  --gris2:       #9a8480;
+  --studio:      #f8f2ee;
+  --studio-dark: #eedfe0;
+  --humo:        #e8d8d0;
+  --bosque-hover: #a83d52;
+  --tierra-hover: #2e1a1e;
+  --tierra-dark:  #261318;
+}
+
+/* ─── NARANJA ─── */
+[data-color="naranja"] {
+  --bosque:      #c8733a;
+  --tierra:      #1f1610;
+  --arena:       #fdf4ec;
+  --otono:       #e8a870;
+  --gris:        #7a6655;
+  --gris2:       #a8917c;
+  --studio:      #fdf8f3;
+  --studio-dark: #f5eade;
+  --humo:        #eeddd0;
+  --bosque-hover: #d98a52;
+  --tierra-hover: #2e2010;
+  --tierra-dark:  #28180c;
+}
+

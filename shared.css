@@ -13,6 +13,15 @@
   --gris2:       #9a9188;
   --studio:      #f4f2ee;
   --studio-dark: #eae7e0;
+
+  /* ─── TIPOGRAFÍA ─── */
+  --font-display: 'Space Mono', monospace;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* ─── HOVER / DARK VARIANTS ─── */
+  --bosque-hover: #4a8a70;
+  --tierra-hover: #2e2a26;
+  --tierra-dark:  #231f1b;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,7 +30,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--studio);
   color: var(--tierra);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   overflow-x: hidden;
   cursor: none;
@@ -79,15 +88,14 @@ nav {
   border-right: 1px solid rgba(28,26,23,0.07);
   text-decoration: none;
 }
-.nav-logo-uv {
-  font-family: 'Space Mono', monospace;
-  font-size: 13px; font-weight: 700;
-  color: var(--tierra);
+.nav-logo-img {
+  height: 30px; width: auto;
+  filter: brightness(0);
+  display: block;
 }
-.nav-logo-uv span { color: var(--bosque); }
 .nav-logo-slash { width: 1px; height: 14px; background: rgba(28,26,23,0.2); }
 .nav-logo-sub {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 8px; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--bosque);
@@ -98,7 +106,7 @@ nav {
 .nav-links a {
   display: flex; align-items: center;
   padding: 0 20px; height: 100%;
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 9px; font-weight: 400;
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--gris); text-decoration: none;
@@ -110,8 +118,8 @@ nav {
 .nav-cta {
   display: flex; align-items: center;
   padding: 0 22px; height: 100%;
-  font-family: 'Space Mono', monospace;
-  font-size: 11px; font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 12px; font-weight: 700;
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--arena);
   background: var(--bosque);
@@ -119,7 +127,49 @@ nav {
   border-left: 1px solid rgba(28,26,23,0.07);
   transition: background .2s;
 }
-.nav-cta:hover { background: #4a8a70; }
+.nav-cta:hover { background: var(--bosque-hover); }
+
+/* ─── NAV CONTROLS (color + typo switchers) ─── */
+.nav-controls {
+  display: flex; align-items: center;
+  padding: 0 14px; height: 100%; gap: 8px;
+  border-left: 1px solid rgba(28,26,23,0.07);
+  background: rgba(28,26,23,0.02);
+}
+.nav-colors { display: flex; align-items: center; gap: 5px; }
+.nav-color-btn {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+  outline: none;
+}
+.nav-color-btn:hover { transform: scale(1.2); }
+.nav-color-btn.active { border-color: var(--tierra); transform: scale(1.1); }
+.nav-color-btn[data-color="default"] { background: #3a6b5a; }
+.nav-color-btn[data-color="violeta"] { background: #7b5ea7; }
+.nav-color-btn[data-color="rosa"]    { background: #c4547a; }
+.nav-color-btn[data-color="bordo"]   { background: #8b2d3f; }
+.nav-color-btn[data-color="naranja"] { background: #c8733a; }
+.nav-ctrl-sep {
+  width: 1px; height: 20px;
+  background: rgba(28,26,23,0.12);
+}
+.nav-typo { display: flex; align-items: center; gap: 2px; }
+.nav-typo-btn {
+  font-family: var(--font-display);
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gris2);
+  background: transparent;
+  border: none; padding: 5px 8px;
+  cursor: pointer;
+  transition: color .2s, background .2s;
+  border-radius: 2px;
+}
+.nav-typo-btn:hover { color: var(--tierra); background: rgba(28,26,23,0.05); }
+.nav-typo-btn.active { color: var(--arena); background: var(--tierra); }
 .nav-switch {
   display: flex; align-items: center;
   padding: 0 20px; height: 100%;
@@ -130,7 +180,7 @@ nav {
 .nav-tab {
   display: flex; align-items: center;
   padding: 5px 12px;
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 10px; font-weight: 700;
   letter-spacing: 0.1em; text-transform: uppercase;
   text-decoration: none;
@@ -177,7 +227,7 @@ nav {
   animation: marquee 24s linear infinite;
 }
 .marquee-item {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 9px; font-weight: 400;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gris2); padding: 0 32px;
@@ -187,7 +237,7 @@ nav {
 
 /* ─── SECCIONES ─── */
 .section-eyebrow {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 9px; font-weight: 400;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--bosque);
@@ -199,8 +249,8 @@ nav {
   width: 20px; height: 1px; background: var(--bosque);
 }
 .section-title {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(30px, 4vw, 50px);
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 64px);
   font-weight: 700; line-height: 1;
   letter-spacing: -0.02em;
   color: var(--tierra);
@@ -231,7 +281,7 @@ nav {
 .sobre-foto::after {
   content: '';
   position: absolute; top: 16px; left: 16px; right: -16px; bottom: -16px;
-  border: 1px solid rgba(58,107,90,0.2);
+  border: 1px solid rgba(196,84,122,0.2);
   pointer-events: none; z-index: -1;
 }
 .sobre-foto-placeholder {
@@ -244,19 +294,19 @@ nav {
   background: var(--bosque);
 }
 .sobre-nombre {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--bosque); margin-bottom: 16px;
 }
 .sobre-texto {
-  font-size: 16px; font-weight: 300;
+  font-size: 19px; font-weight: 300;
   color: var(--tierra); line-height: 1.75;
   margin-bottom: 24px;
 }
 .sobre-texto em { font-style: italic; color: var(--gris); }
 .sobre-firma {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gris);
   border-top: 1px solid rgba(28,26,23,0.1);
@@ -264,13 +314,13 @@ nav {
   display: flex; gap: 24px; flex-wrap: wrap;
 }
 .sobre-stat-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 28px; font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 700;
   color: var(--tierra); letter-spacing: -0.02em;
   display: block;
 }
 .sobre-stat-label {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 8px; color: var(--gris);
   letter-spacing: 0.14em; text-transform: uppercase;
 }
@@ -285,14 +335,14 @@ nav {
 #contacto::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(58,107,90,0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(196,84,122,0.04) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
 }
 
 /* ─── FORMULARIO ─── */
 .form-label {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gris);
 }
@@ -300,8 +350,8 @@ nav {
   background: rgba(240,237,230,0.05);
   border: 1px solid rgba(240,237,230,0.1);
   color: var(--arena);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 300;
+  font-family: var(--font-body);
+  font-size: 15px; font-weight: 300;
   padding: 12px 14px;
   outline: none; width: 100%;
   transition: border-color .2s, background .2s;
@@ -312,9 +362,9 @@ nav {
   border-color: rgba(240,237,230,0.3);
   background: rgba(240,237,230,0.08);
 }
-.form-select option { background: #2e2a26; }
+.form-select option { background: var(--tierra-hover); }
 .form-submit {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 9px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--tierra);
@@ -323,7 +373,7 @@ nav {
   cursor: pointer; width: 100%;
   transition: background .2s, transform .2s;
 }
-.form-submit:hover { background: #4a8a70; transform: translateY(-2px); }
+.form-submit:hover { background: var(--bosque-hover); transform: translateY(-2px); }
 
 /* ─── FOOTER BASE ─── */
 footer {
@@ -334,12 +384,12 @@ footer {
   justify-content: space-between; flex-wrap: wrap; gap: 14px;
 }
 .footer-logo {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 11px; font-weight: 700; color: var(--arena);
 }
 .footer-logo span { color: var(--bosque); }
 .footer-place {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-display);
   font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--otono);
 }
