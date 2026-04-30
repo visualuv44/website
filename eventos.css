@@ -376,6 +376,8 @@
 
 /* ─── MOBILE EVENTOS ─── */
 @media (max-width: 768px) {
+  #view-eventos .hero-right { display: none; }
+  #view-eventos .hero-left { padding: 48px 28px 64px; }
   #view-eventos #servicios,
   #view-eventos #coberturas,
   #view-eventos #proceso,
@@ -383,7 +385,7 @@
   #view-eventos .galeria-header,
   #view-eventos #contacto { padding: 80px 28px; }
   #view-eventos .servicios-grid { grid-template-columns: 1fr; }
-  #view-eventos #coberturas .paquetes-grid { grid-template-columns: 1fr 1fr; }
+  #view-eventos #coberturas .paquetes-grid { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
   #view-eventos .proceso-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
   #view-eventos .proceso-step { border-right: none; padding-right: 0; }
   #view-eventos .galeria-grid { grid-template-columns: 1fr 1fr; }
