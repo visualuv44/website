@@ -43,7 +43,7 @@
 /* ─── Composición abstracta eventos ─── */
 .ev-composition {
   position: relative;
-  width: 300px; height: 380px;
+  width: 420px; height: 520px;
 }
 
 /* Marcos superpuestos */
@@ -52,20 +52,20 @@
   overflow: hidden;
 }
 .ev-frame--back {
-  width: 220px; height: 290px;
+  width: 320px; height: 420px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) rotate(8deg) translate(28px, 20px);
   border: 1px solid rgba(240,237,230,0.1);
 }
 .ev-frame--mid {
-  width: 220px; height: 290px;
+  width: 320px; height: 420px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) rotate(-5deg) translate(-18px, -14px);
   border: 1px solid rgba(196,84,122,0.35);
   background: rgba(196,84,122,0.04);
 }
 .ev-frame--main {
-  width: 220px; height: 290px;
+  width: 320px; height: 420px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(240,237,230,0.18);

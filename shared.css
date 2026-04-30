@@ -218,12 +218,13 @@ nav {
 .marquee-wrap {
   background: var(--tierra);
   overflow: hidden; padding: 12px 0;
-  white-space: nowrap;
+  display: flex; align-items: center;
   border-top: 1px solid rgba(240,237,230,0.04);
   border-bottom: 1px solid rgba(240,237,230,0.04);
 }
 .marquee-track {
-  display: inline-flex;
+  display: flex; align-items: center;
+  flex-shrink: 0;
   animation: marquee 24s linear infinite;
 }
 .marquee-item {

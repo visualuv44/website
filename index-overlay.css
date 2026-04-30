@@ -93,6 +93,10 @@ body.index-open { overflow: hidden; }
   display: block;
   filter: brightness(0) invert(1);
 }
+@media (min-width: 769px) {
+  .index-logo { height: 48px; }
+  .index-logo-wrap { padding: 14px 32px; }
+}
 
 /* ─── CURSOR ─── */
 body:has(#view-index:not(.hiding):not(.hidden)) #cursor { background: var(--arena); }
