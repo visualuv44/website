@@ -163,19 +163,39 @@ if (marqueeTrack && !reduceMotion) {
 ScrollTrigger.matchMedia({
   '(min-width: 921px)': () => {
     if (reduceMotion) return;
-    const track = document.getElementById('stripTrack');
-    const pin   = document.getElementById('stripPin');
-    const getDist = () => track.scrollWidth - window.innerWidth + 80;
-    gsap.to(track, {
-      x: () => -getDist(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.strip',
-        start: 'top top',
-        end: () => '+=' + getDist(),
-        pin: pin,
-        scrub: 1,
-        invalidateOnRefresh: true
+    document.querySelectorAll('.strip').forEach(strip => {
+      const track = strip.querySelector('.strip-track');
+      const pin   = strip.querySelector('.strip-pin');
+      if (!track || !pin) return;
+      const getDist = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
+      gsap.to(track, {
+        x: () => -getDist(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: strip,
+          start: 'top top',
+          end: () => '+=' + getDist(),
+          pin: pin,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      });
+
+      // Recalcular cuando las imágenes del strip terminen de cargar:
+      // si se miden antes, el ancho es menor y el pin se suelta antes de tiempo.
+      const imgs = track.querySelectorAll('img');
+      let pending = imgs.length;
+      if (pending) {
+        const done = () => { if (--pending <= 0) ScrollTrigger.refresh(); };
+        imgs.forEach(img => {
+          if (img.complete && img.naturalWidth) pending--;
+          else {
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+          }
+        });
+        if (pending <= 0) ScrollTrigger.refresh();
       }
     });
   }
