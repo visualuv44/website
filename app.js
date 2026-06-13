@@ -66,16 +66,9 @@ function heroIntro() {
       yPercent: -100, duration: 1, ease: 'power4.inOut',
       onComplete: () => preloader.remove()
     })
-    .to('.hero-title .char', {
-      y: 0, duration: 1.2, stagger: 0.045, ease: 'power4.out'
-    }, '-=0.45')
-    .to('.hero-img-mask', {
-      clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: 'power4.inOut'
-    }, '-=0.9')
-    .to('#heroImg', { scale: 1, duration: 1.6, ease: 'power3.out' }, '<')
-    .to('.hero [data-reveal]', {
-      opacity: 1, y: 0, duration: 1, stagger: 0.12
-    }, '-=1');
+    .from('#heroBgImg', { scale: 1.2, duration: 2, ease: 'power3.out' }, '-=0.5')
+    .from('.hero-bg-overlay', { opacity: 0, duration: 1.2 }, '<')
+    .from('.hero-bg .hero-scroll', { opacity: 0, y: 24, duration: 0.9 }, '-=0.8');
 }
 
 if (reduceMotion) {
@@ -92,7 +85,7 @@ if (reduceMotion) {
       preBar.style.width = state.p + '%';
     },
     onComplete: () => {
-      const img = document.getElementById('heroImg');
+      const img = document.getElementById('heroBgImg');
       let started = false;
       const start = () => { if (!started) { started = true; heroIntro(); } };
       if (img.complete) start();
@@ -107,6 +100,16 @@ if (reduceMotion) {
 
 /* ─── SCROLL REVEALS ─── */
 if (!reduceMotion) {
+  /* intro (brand statement) animates when scrolled into view */
+  const introTl = gsap.timeline({
+    scrollTrigger: { trigger: '.hero.intro', start: 'top 72%' }
+  });
+  introTl
+    .to('.hero-title .char', { y: 0, duration: 1.1, stagger: 0.04, ease: 'power4.out' })
+    .to('.hero-img-mask', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: 'power4.inOut' }, '-=0.7')
+    .to('#heroImg', { scale: 1, duration: 1.4, ease: 'power3.out' }, '<')
+    .to('.hero.intro [data-reveal]', { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, '-=0.9');
+
   document.querySelectorAll('[data-reveal]').forEach(el => {
     if (el.closest('.hero')) return; // handled in intro
     gsap.to(el, {
