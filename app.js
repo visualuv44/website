@@ -4,6 +4,11 @@
 
 document.documentElement.classList.add('js');
 
+/* ─── AÑO ACTUAL DINÁMICO ─── */
+document.querySelectorAll('[data-year]').forEach(el => {
+  el.textContent = new Date().getFullYear();
+});
+
 gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches

@@ -341,7 +341,7 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 }
 .marquee-track span {
   font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(18px, 2.4vw, 30px);
+  font-size: clamp(15px, 2vw, 24px);
   text-transform: uppercase; letter-spacing: 0.06em;
   white-space: nowrap;
   color: var(--muted);
@@ -499,7 +499,8 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 }
 .contact-big {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(38px, 10vw, 150px);
+  font-size: clamp(32px, 7vw, 110px);
+  max-width: 100%; word-break: break-word;
   line-height: 0.9; text-transform: uppercase;
   letter-spacing: -0.02em;
   transition: color 0.4s;
