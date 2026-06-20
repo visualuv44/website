@@ -365,11 +365,10 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 .work-img img {
   display: block;
   width: 100%; height: auto;
-  scale: 1.12;
   will-change: transform;
   transition: scale 0.8s var(--ease);
 }
-.work-item:hover .work-img img { scale: 1.17; }
+.work-item:hover .work-img img { scale: 1.04; }
 .work-item figcaption {
   display: flex; justify-content: space-between;
   padding-top: 12px;
@@ -400,7 +399,7 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 .strip-item { position: relative; flex: none; }
 .strip-item img {
   height: clamp(280px, 44vh, 460px); width: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
 .strip-item--tall img { height: clamp(340px, 56vh, 580px); }
 .strip-item figcaption {
