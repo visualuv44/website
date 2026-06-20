@@ -206,6 +206,9 @@ ScrollTrigger.matchMedia({
   }
 });
 
+/* Recalcular pins cuando todo (imágenes incluidas) terminó de cargar */
+window.addEventListener('load', () => ScrollTrigger.refresh());
+
 /* ─── SERVICES HOVER PREVIEW ─── */
 const preview    = document.getElementById('servicePreview');
 const previewImg = document.getElementById('servicePreviewImg');
