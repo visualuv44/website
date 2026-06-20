@@ -295,11 +295,11 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 }
 .hero-img-mask {
   overflow: hidden;
-  aspect-ratio: 3 / 2;
   clip-path: inset(100% 0 0 0);
 }
 .hero-img-mask img {
-  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  width: 100%; height: auto;
   transform: scale(1.25);
 }
 .hero-caption {
@@ -362,15 +362,14 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
   overflow: hidden;
   background: var(--bg-2);
 }
-.work-item--lg .work-img { aspect-ratio: 4 / 3; }
-.work-item--sm .work-img { aspect-ratio: 4 / 5; }
-.work-item--md .work-img { aspect-ratio: 1 / 1; }
 .work-img img {
-  width: 100%; height: 110%; object-fit: cover;
+  display: block;
+  width: 100%; height: auto;
+  scale: 1.12;
   will-change: transform;
   transition: scale 0.8s var(--ease);
 }
-.work-item:hover .work-img img { scale: 1.05; }
+.work-item:hover .work-img img { scale: 1.17; }
 .work-item figcaption {
   display: flex; justify-content: space-between;
   padding-top: 12px;
@@ -458,7 +457,8 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad); }
 .about-figure { position: sticky; top: 100px; }
 .about-img-mask { overflow: hidden; }
 .about-img-mask img {
-  width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+  display: block;
+  width: 100%; height: auto;
   filter: grayscale(1) contrast(1.05);
 }
 .about-figure figcaption {
