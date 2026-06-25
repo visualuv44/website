@@ -15,9 +15,21 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   || new URLSearchParams(location.search).has('instant');
 const finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+/* ─── DETECCIÓN DE EQUIPOS LENTOS ───
+   El pin + scrub + smooth-scroll es pesado. En máquinas con pocos núcleos o
+   poca RAM tartamudea, así que ahí caemos al scroll horizontal nativo. */
+const lowPerf = (navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4)
+  || (navigator.deviceMemory > 0 && navigator.deviceMemory <= 2)
+  || new URLSearchParams(location.search).has('lowperf');
+
+/* La strip usa scroll horizontal nativo si: reduce-motion o equipo lento.
+   Sin esto, en esos casos la tira queda recortada y no se puede ver entera. */
+const stripNative = reduceMotion || lowPerf;
+if (stripNative) document.documentElement.classList.add('strip-native');
+
 /* ─── SMOOTH SCROLL (Lenis) ─── */
 let lenis = null;
-if (!reduceMotion) {
+if (!reduceMotion && !lowPerf) {
   lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -167,7 +179,7 @@ if (marqueeTrack && !reduceMotion) {
 /* ─── HORIZONTAL STRIP (desktop only) ─── */
 ScrollTrigger.matchMedia({
   '(min-width: 921px)': () => {
-    if (reduceMotion) return;
+    if (stripNative) return;
     document.querySelectorAll('.strip').forEach(strip => {
       const track = strip.querySelector('.strip-track');
       const pin   = strip.querySelector('.strip-pin');
