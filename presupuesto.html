@@ -69,7 +69,7 @@
   .scope li .t small{display:block;color:var(--muted);font-size:13px;margin-top:5px;}
 
   /* pricing */
-  .plans{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;}
+  .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
   @media(max-width:780px){.plans{grid-template-columns:1fr;}}
   .plan{border:1px solid var(--line);padding:clamp(26px,3.5vw,44px);background:var(--bg-2);position:relative;
     display:flex;flex-direction:column;}
@@ -182,15 +182,46 @@
 <section>
   <div class="wrap">
     <div class="shead" data-reveal>
-      <h2>Dos <em>opciones</em></h2>
+      <h2>Cuatro <em>opciones</em></h2>
       <span class="idx">(Inversión)</span>
     </div>
 
     <div class="plans">
+      <article class="plan" data-reveal>
+        <p class="kicker">Opción 1</p>
+        <h3>Pack Completo, sin edición</h3>
+        <p class="price">$1.000.000<small>Todo incluido · proyecto completo</small></p>
+        <ul>
+          <li>Los 15 videos de 20 min, entregados crudos</li>
+          <li>Pack de 25 a 30 fotos editadas (portada + redes)</li>
+          <li>Licencia de uso comercial para el curso</li>
+          <li>Entrega progresiva, video por video</li>
+          <li>Entrega en 24–48 hs por bloque</li>
+        </ul>
+        <p class="note">Forma de pago: 50% para arrancar · 50% contra entrega final <em>(charlable)</em>.</p>
+        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Me%20interesa%20el%20Pack%20Completo%20sin%20edici%C3%B3n%20para%20el%20curso%20de%20masaje" target="_blank" rel="noopener">Elegir el pack →</a></div>
+      </article>
+
+      <article class="plan" data-reveal>
+        <p class="kicker">Opción 2</p>
+        <h3>A la carta</h3>
+        <p class="price">$75.000<small>por video · fotos aparte</small></p>
+        <ul>
+          <li>Cada video de 20 min, entregado sin editar</li>
+          <li>Licencia de uso comercial incluida en cada video</li>
+          <li>Pack de 25-30 fotos editadas: $140.000 (opcional)</li>
+        </ul>
+        <div class="compare">
+          Los 15 videos sueltos = <strong>$1.125.000</strong> + fotos $140.000.<br>
+          👉 El Pack Completo te ahorra <strong>$265.000</strong>.
+        </div>
+        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Quiero%20consultar%20por%20videos%20sin%20edici%C3%B3n%20del%20curso%20a%20la%20carta" target="_blank" rel="noopener">Consultar →</a></div>
+      </article>
+
       <article class="plan plan--feat" data-reveal>
         <span class="badge">Recomendada</span>
-        <p class="kicker">Opción 1</p>
-        <h3>Pack Completo Curso</h3>
+        <p class="kicker">Opción 3</p>
+        <h3>Pack Completo</h3>
         <p class="price">$1.500.000<small>Todo incluido · proyecto completo</small></p>
         <ul>
           <li>Los 15 videos de 20 min editados</li>
@@ -204,8 +235,8 @@
       </article>
 
       <article class="plan" data-reveal>
-        <p class="kicker">Opción 2</p>
-        <h3>A la carta</h3>
+        <p class="kicker">Opción 4</p>
+        <h3>A la carta editado</h3>
         <p class="price">$120.000<small>por video · fotos aparte</small></p>
         <ul>
           <li>Cada video de 20 min con el mismo nivel de edición</li>
@@ -216,7 +247,7 @@
           Los 15 videos sueltos = <strong>$1.800.000</strong> + fotos $100.000.<br>
           👉 El Pack Completo te ahorra <strong>más de $400.000</strong>.
         </div>
-        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Quiero%20consultar%20por%20videos%20del%20curso%20a%20la%20carta" target="_blank" rel="noopener">Consultar →</a></div>
+        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Quiero%20consultar%20por%20videos%20editados%20del%20curso%20a%20la%20carta" target="_blank" rel="noopener">Consultar →</a></div>
       </article>
     </div>
   </div>
