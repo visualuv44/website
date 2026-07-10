@@ -193,7 +193,7 @@
         <p class="price">$1.000.000<small>Todo incluido · proyecto completo</small></p>
         <ul>
           <li>Los 15 videos de 20 min, entregados crudos</li>
-          <li>Pack de 25 a 30 fotos editadas (portada + redes)</li>
+          <li>Pack de 35 a 40 fotos editadas (portada + redes)</li>
           <li>Licencia de uso comercial para el curso</li>
           <li>Entrega progresiva, video por video</li>
           <li>Entrega en 24–48 hs por bloque</li>
@@ -205,15 +205,15 @@
       <article class="plan" data-reveal>
         <p class="kicker">Opción 2</p>
         <h3>A la carta</h3>
-        <p class="price">$75.000<small>por video · fotos aparte</small></p>
+        <p class="price">$80.000<small>por video · fotos aparte</small></p>
         <ul>
           <li>Cada video de 20 min, entregado sin editar</li>
           <li>Licencia de uso comercial incluida en cada video</li>
-          <li>Pack de 25-30 fotos editadas: $140.000 (opcional)</li>
+          <li>Fotos aparte</li>
         </ul>
         <div class="compare">
-          Los 15 videos sueltos = <strong>$1.125.000</strong> + fotos $140.000.<br>
-          👉 El Pack Completo te ahorra <strong>$265.000</strong>.
+          Los 15 videos sueltos = <strong>$1.200.000</strong>.<br>
+          👉 El Pack Completo te ahorra <strong>$200.000</strong>.
         </div>
         <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Quiero%20consultar%20por%20videos%20sin%20edici%C3%B3n%20del%20curso%20a%20la%20carta" target="_blank" rel="noopener">Consultar →</a></div>
       </article>
@@ -225,7 +225,7 @@
         <p class="price">$1.500.000<small>Todo incluido · proyecto completo</small></p>
         <ul>
           <li>Los 15 videos de 20 min editados</li>
-          <li>Pack de 15 a 20 fotos editadas (portada + redes)</li>
+          <li>Pack de 35 a 40 fotos editadas (portada + redes)</li>
           <li>Licencia de uso comercial para el curso</li>
           <li>Entrega progresiva, video por video</li>
           <li>1 ronda de ajustes por video</li>
@@ -241,7 +241,7 @@
         <ul>
           <li>Cada video de 20 min con el mismo nivel de edición</li>
           <li>Licencia de uso comercial incluida en cada video</li>
-          <li>Pack de 15-20 fotos editadas: $100.000 (opcional)</li>
+          <li>Fotos aparte</li>
         </ul>
         <div class="compare">
           Los 15 videos sueltos = <strong>$1.800.000</strong> + fotos $100.000.<br>
@@ -280,8 +280,8 @@
     <div class="steps" data-reveal>
       <div class="step"><b>01</b><p>Definimos las fechas de rodaje, concentradas en pocas jornadas.</p></div>
       <div class="step"><b>02</b><p>50% de anticipo para reservar agenda y arrancar.</p></div>
-      <div class="step"><b>03</b><p>Grabamos y vas recibiendo los videos a medida que se editan.</p></div>
-      <div class="step"><b>04</b><p>Entrega del material editado entre 48 y 72 hs por bloque.</p></div>
+      <div class="step"><b>03</b><p>Grabamos.</p></div>
+      <div class="step"><b>04</b><p>Entrega del material editado o sin editar entre 24 y 72 hs por bloque.</p></div>
     </div>
   </div>
 </section>
@@ -304,16 +304,13 @@
 <footer>
   <div class="foot">
     <span>© <span id="year"></span> VISUALUV</span>
-    <span id="today"></span>
     <span>El Bolsón · Patagonia Argentina</span>
   </div>
 </footer>
 
 <script>
-  // Fecha dinámica
+  // Año dinámico
   document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('today').textContent = 'Propuesta válida al ' +
-    new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
 
   // Reveal on scroll
   const io = new IntersectionObserver((entries) => {
