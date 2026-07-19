@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="REVELADO — el jueguito para dominar Lightroom. Entrenamiento interno VISUALUV.">
+<title>REVELADO ✺ VISUALUV</title>
+<link rel="icon" href="../logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="juego.css">
+</head>
+<body>
+
+<!-- ─── HERO / CUARTO OSCURO ─── -->
+<header class="hero" id="hero">
+  <p class="hero-eyebrow">VISUALUV ✺ Entrenamiento interno del estudio</p>
+  <h1 class="hero-title">Revelado</h1>
+  <p class="hero-sub">El jueguito para dominar Lightroom<br>sin regalarle la tarde a la compu.</p>
+  <p class="hero-para"><em>Para Lucía, de Teo.</em></p>
+
+  <div class="expo" id="expo">
+    <div class="expo-head">
+      <span class="expo-label">Exposición</span>
+      <span class="expo-value" id="expoValue">−3,00</span>
+    </div>
+    <input type="range" id="expoSlider" min="-300" max="100" value="-300" step="5"
+           aria-label="Exposición — subila a más uno para empezar">
+    <p class="expo-hint" id="expoHint">Subí la exposición a <strong>+1,00</strong> para revelar el juego</p>
+  </div>
+
+  <button class="hero-continue" id="heroContinue" hidden>Seguir donde estabas ↓</button>
+</header>
+
+<!-- ─── TIRA DE CONTACTOS (progreso) ─── -->
+<nav class="tira" id="tira" aria-label="Progreso por niveles" hidden>
+  <div class="tira-inner" id="tiraInner"><!-- frames por JS --></div>
+</nav>
+
+<!-- ─── CUERPO DEL JUEGO ─── -->
+<main class="juego" id="juego" hidden>
+
+  <section class="reglas">
+    <h2 class="reglas-title">Cómo se juega</h2>
+    <ol class="reglas-list">
+      <li>Las misiones se hacen <strong>en Lightroom</strong>, con tus fotos reales. Acá solo las marcás cuando las terminaste.</li>
+      <li>Cada misión hecha se marca con la bandera <span class="flag-demo">⚑</span> — como una foto elegida.</li>
+      <li>Los niveles se desbloquean en orden. Sin apuro: un nivel por día ya es un montón.</li>
+    </ol>
+  </section>
+
+  <div id="niveles"><!-- niveles por JS --></div>
+
+  <!-- ─── JEFE FINAL ─── -->
+  <section class="jefe" id="jefe">
+    <div class="jefe-inner">
+      <p class="jefe-eyebrow">✺ Jefe final ✺</p>
+      <h2 class="jefe-title" id="jefeTitulo"></h2>
+      <p class="jefe-intro" id="jefeIntro"></p>
+
+      <div class="jefe-locked" id="jefeLocked">
+        <p>Se desbloquea al completar los 7 niveles.</p>
+      </div>
+
+      <div class="jefe-open" id="jefeOpen" hidden>
+        <div class="crono">
+          <span class="crono-display" id="cronoDisplay">00:00</span>
+          <div class="crono-btns">
+            <button id="cronoStart">Arrancar</button>
+            <button id="cronoPause" hidden>Pausar</button>
+            <button id="cronoReset" hidden>Reiniciar</button>
+          </div>
+          <p class="crono-best" id="cronoBest" hidden></p>
+        </div>
+        <ol class="jefe-pasos" id="jefePasos"><!-- pasos por JS --></ol>
+        <button class="jefe-win" id="jefeWin">Terminé la sesión ⚑</button>
+      </div>
+
+      <div class="victoria" id="victoria" hidden>
+        <p class="victoria-badge">✺</p>
+        <h3 class="victoria-title">Jefa del flujo</h3>
+        <p class="victoria-text" id="victoriaText"></p>
+        <p class="victoria-note"><em>Ahora el desafío es sostenerlo: cada sesión nueva, mismo flujo. Y cuando quieras, la revancha contra tu mejor tiempo.</em></p>
+        <button class="victoria-again" id="victoriaAgain">Jugar la revancha</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="pie">
+  <p class="pie-brand">VISUALUV ✺ El Bolsón</p>
+  <p class="pie-credit">Hecho con amor por Teo, para la mejor fotógrafa de la comarca. <span id="anio"></span></p>
+</footer>
+
+<script src="misiones.js"></script>
+<script src="juego.js"></script>
+</body>
+</html>

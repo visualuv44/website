@@ -4,6 +4,9 @@
 # Documentos internos de presupuesto (costos y margen — no publicar)
 presupuesto/
 
+# Notas internas del jueguito (no publicar)
+jueguito/info
+
 # Material comercial/marca interno (no publicar en el repo del cliente)
 manual-marca*.pdf
 manual-marca.html
