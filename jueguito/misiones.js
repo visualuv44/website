@@ -34,11 +34,11 @@ const NIVELES = [
         titulo: "La prueba de fuego (y el botón de apagar)",
         porque: "El error clásico: dejar Auto Sync prendido y editar «una foto» que en realidad son ochenta.",
         pasos: [
-          "Editá una tanda completa de 20+ fotos con Auto Sync: guía primero, resto sincronizado.",
-          "Pensá cuánto tardabas antes foto por foto. Ese es tu tiempo recuperado.",
+          "Editá una tanda con Auto Sync: guía primero, resto sincronizado. Arrancá con 15-20 fotos — tu Mac tiene 8GB de RAM, así que tandas gigantes de una se sienten pesadas. Ese límite no es un error tuyo, es la máquina.",
+          "Pensá cuánto tardabas antes foto por foto. Ese es tu tiempo recuperado, aunque lo hagas en tandas más chicas.",
           "Apagá el interruptor apenas termines. Siempre."
         ],
-        tip: "Regla de oro: Auto Sync se prende para la tanda y se apaga al terminar, como una hornalla."
+        tip: "Regla de oro: Auto Sync se prende para la tanda y se apaga al terminar, como una hornalla. Y si un día sentís que TODO el programa anda lento, no solo Auto Sync, el Nivel 07 tiene la posta sobre eso."
       }
     ]
   },
@@ -237,12 +237,14 @@ const NIVELES = [
       },
       {
         titulo: "Servicio de mantenimiento",
-        porque: "Optimizar el catálogo es el «reiniciá y probá» de Lightroom: gratis y efectivo.",
+        porque: "Optimizar el catálogo es el «reiniciá y probá» de Lightroom: gratis y efectivo. Y en una Mac de 8GB de RAM, este nivel completo es el que más se nota.",
         pasos: [
           "Menú Archivo → «Optimizar catálogo». Dale que sí.",
-          "Aprovechá y en Ajustes del catálogo poné las previsualizaciones 1:1 a descartarse a los 30 días.",
+          "En Ajustes del catálogo → pestaña Archivo, bajá el «Tamaño de previsualización estándar» a Mediano y la «Calidad de previsualización» a Media. Con poca RAM, esto aliviana TODO el programa, no solo el catálogo.",
+          "Aprovechá y poné las previsualizaciones 1:1 a descartarse a los 30 días.",
           "Hacelo una vez por mes, o cuando lo notes lento."
-        ]
+        ],
+        tip: "En una Mac con 8GB de RAM como la tuya, cerrar el navegador y otras apps mientras editás en Lightroom ayuda más de lo que parece — le deja más memoria libre a lo que realmente importa."
       }
     ]
   }
