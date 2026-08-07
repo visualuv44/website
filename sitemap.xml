@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://visualuv.com.ar/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/9.webp</image:loc>
+      <image:title>Torneo de ajedrez · Lago Puelo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/1.webp</image:loc>
+      <image:title>Retrato patagónico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/16.webp</image:loc>
+      <image:title>Incendios · Comarca Andina</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/LUV-76.webp</image:loc>
+      <image:title>Festejo de cumpleaños</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/30.webp</image:loc>
+      <image:title>Año Cero · Show en vivo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://visualuv.com.ar/img/destacadas/luv.4.webp</image:loc>
+      <image:title>Helados Jauja · Fotografía de producto</image:title>
+    </image:image>
+  </url>
+</urlset>

@@ -7,6 +7,9 @@ presupuesto/
 # Notas internas del jueguito (no publicar)
 jueguito/info
 
+# Propuesta de contenido a revisar con la clienta (borrador interno)
+propuesta-contenido-ia.md
+
 # Material comercial/marca interno (no publicar en el repo del cliente)
 manual-marca*.pdf
 manual-marca.html
