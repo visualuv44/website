@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VISUALUV — Propuesta · Video de cierre 12.º grado</title>
+<meta name="description" content="Propuesta audiovisual para el video sorpresa del cierre de 12.º grado: retrospectiva con fotos y entrevistas a los maestros. VISUALUV, El Bolsón.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/logovisualuv.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0c0a; --bg-2:#15110e; --ink:#ece4d8; --muted:#8d8378;
+    --accent:#ff5c28; --line:rgba(236,228,216,.14);
+    --font-display:"Syne",sans-serif; --font-body:"Space Grotesk",sans-serif; --font-serif:"Fraunces",serif;
+    --pad:clamp(20px,4vw,64px); --ease:cubic-bezier(.65,.05,0,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scrollbar-width:thin;scrollbar-color:var(--muted) var(--bg);scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip;}
+  ::selection{background:var(--accent);color:var(--bg);}
+  a{color:inherit;text-decoration:none;}
+  em{font-family:var(--font-serif);font-style:italic;font-weight:300;}
+
+  /* grain */
+  .grain{position:fixed;inset:-100%;z-index:120;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain .9s steps(4) infinite;}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(3%,3%)}}
+
+  /* nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+    padding:18px var(--pad);mix-blend-mode:difference;}
+  .nav-logo{font-family:var(--font-display);font-weight:800;letter-spacing:.06em;font-size:18px;}
+  .nav-back{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.8;}
+  .nav-back:hover{opacity:1;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 var(--pad);}
+
+  /* hero */
+  .lede{padding:clamp(120px,18vh,200px) 0 clamp(40px,7vh,80px);border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;
+    display:flex;gap:14px;align-items:center;}
+  .eyebrow::before{content:"";width:42px;height:1px;background:var(--accent);}
+  .lede h1{font-family:var(--font-display);font-weight:700;line-height:1.02;letter-spacing:-.01em;
+    font-size:clamp(40px,8vw,108px);text-transform:uppercase;}
+  .lede h1 em{display:block;color:var(--muted);text-transform:none;}
+  .lede p{max-width:56ch;margin-top:34px;color:var(--muted);font-size:clamp(15px,1.5vw,18px);}
+  .lede .meta{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px 32px;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);}
+  .lede .meta span{display:flex;gap:10px;align-items:center;}
+  .lede .meta span::before{content:"✺";color:var(--accent);}
+
+  /* section heads */
+  section{padding:clamp(56px,9vh,110px) 0;}
+  .shead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:48px;flex-wrap:wrap;}
+  .shead h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,4vw,46px);letter-spacing:-.01em;}
+  .shead h2 em{color:var(--accent);}
+  .shead .idx{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+  /* alcance list */
+  .scope{list-style:none;display:grid;gap:0;border-top:1px solid var(--line);}
+  .scope li{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start;}
+  .scope li .n{font-family:var(--font-display);color:var(--accent);font-size:14px;}
+  .scope li .t{font-size:clamp(15px,1.6vw,18px);}
+  .scope li .t small{display:block;color:var(--muted);font-size:13px;margin-top:5px;}
+
+  /* inversión: dos opciones */
+  .invest{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;}
+  @media(max-width:780px){.invest{grid-template-columns:1fr;gap:34px;}}
+  .plan{border:1px solid var(--line);padding:clamp(26px,3.5vw,44px);background:var(--bg-2);position:relative;
+    display:flex;flex-direction:column;}
+  .plan--feat{border-color:var(--accent);}
+  .plan .badge{position:absolute;top:0;right:24px;transform:translateY(-50%);background:var(--accent);color:var(--bg);
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;font-weight:500;}
+  .plan .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .plan h3{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.6vw,30px);margin:14px 0 4px;}
+  .plan h3 em{font-family:var(--font-serif);font-weight:300;color:var(--accent);}
+  .plan .desc{font-size:14px;color:var(--muted);margin-top:8px;}
+  .plan .price{font-family:var(--font-display);font-weight:800;font-size:clamp(34px,5vw,56px);letter-spacing:-.02em;
+    line-height:1;margin:22px 0 6px;}
+  .plan .price small{display:block;font-family:var(--font-body);font-weight:300;font-size:14px;color:var(--muted);
+    letter-spacing:0;margin-top:8px;}
+  .plan ul{list-style:none;margin:26px 0 0;display:grid;gap:13px;}
+  .plan ul li{display:grid;grid-template-columns:20px 1fr;gap:12px;font-size:15px;color:var(--ink);}
+  .plan ul li::before{content:"→";color:var(--accent);}
+  .plan ul li.plus::before{content:"+";}
+  .plan .cta{margin-top:auto;padding-top:26px;}
+  .plan .cta a{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);
+    padding:13px 22px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;transition:.3s var(--ease);}
+  .plan .cta a:hover{background:var(--ink);color:var(--bg);}
+  .plan--feat .cta a{background:var(--accent);border-color:var(--accent);color:var(--bg);}
+  .plan--feat .cta a:hover{background:var(--ink);border-color:var(--ink);}
+  .invest-note{margin-top:22px;font-size:13px;color:var(--muted);}
+
+  /* super 8 strip: guiño visual */
+  .s8{display:flex;gap:6px;margin:18px 0 0;}
+  .s8 i{flex:1;height:26px;border:1px solid rgba(255,92,40,.45);border-radius:3px;position:relative;
+    background:linear-gradient(135deg,rgba(255,92,40,.18),rgba(236,228,216,.05));}
+  .s8 i::before,.s8 i::after{content:"";position:absolute;left:50%;width:5px;height:3px;margin-left:-2.5px;
+    background:var(--bg-2);border:1px solid rgba(255,92,40,.45);border-radius:1px;}
+  .s8 i::before{top:-3px;} .s8 i::after{bottom:-3px;}
+
+  /* aclaraciones */
+  .extras{width:100%;border-collapse:collapse;border-top:1px solid var(--line);}
+  .extras tr{border-bottom:1px solid var(--line);}
+  .extras td{padding:18px 0;font-size:15px;vertical-align:top;}
+  .extras td small{display:block;color:var(--muted);font-size:13px;margin-top:3px;}
+  .extras td:last-child{text-align:right;font-family:var(--font-display);color:var(--accent);white-space:nowrap;padding-left:16px;}
+  .tbc{display:inline-block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    border:1px solid var(--line);color:var(--muted);padding:2px 7px;vertical-align:middle;font-family:var(--font-body);}
+
+  /* cronograma */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  @media(max-width:900px){.steps{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.steps{grid-template-columns:1fr;}}
+  .steps .step{border-top:1px solid var(--accent);padding-top:18px;}
+  .steps .step b{font-family:var(--font-display);display:block;color:var(--accent);font-size:13px;margin-bottom:10px;
+    letter-spacing:.1em;text-transform:uppercase;}
+  .steps .step p{font-size:14px;color:var(--muted);}
+  .steps .step p strong{color:var(--ink);font-weight:400;}
+  .steps-note{margin-top:30px;font-size:13px;color:var(--muted);max-width:70ch;}
+
+  /* contact */
+  .contact{text-align:center;border-top:1px solid var(--line);}
+  .contact .eyebrow{justify-content:center;}
+  .contact .eyebrow::before{display:none;}
+  .contact-big{font-family:var(--font-display);font-weight:800;font-size:clamp(38px,9vw,104px);line-height:.95;
+    display:inline-block;max-width:100%;letter-spacing:-.02em;transition:color .3s;}
+  .contact-big:hover{color:var(--accent);}
+  .contact-links{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:center;font-size:14px;}
+  .contact-links a{border-bottom:1px solid transparent;padding-bottom:3px;transition:.3s;}
+  .contact-links a:hover{border-color:var(--accent);color:var(--accent);}
+
+  footer .foot{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:30px var(--pad);
+    border-top:1px solid var(--line);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none;}.grain{animation:none;}}
+
+  /* impresión / PDF */
+  @page{size:A4;margin:0;}
+  @media print{
+    html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--bg);}
+    .grain{display:none;}
+    .nav{position:static;mix-blend-mode:normal;}
+    .nav-back{display:none;}
+    [data-reveal]{opacity:1!important;transform:none!important;}
+    .nav{padding-top:26px;}
+    .lede{padding:40px 0 34px;}
+    .lede h1{font-size:60px;}
+    .lede p{margin-top:24px;}
+    .lede .meta{margin-top:26px;}
+    section{padding:34px 0;}
+    .shead{margin-bottom:24px;}
+    .scope li{padding:16px 0;}
+    .print-break{break-before:page;padding-top:48px;}
+    .plan,.step,.scope li,.extras tr{break-inside:avoid;}
+    .invest{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:repeat(5,1fr);}
+    .contact{padding:30px 0;}
+    .contact-big{font-size:60px;}
+    .contact-links{margin-top:22px;}
+    footer .foot{padding:22px var(--pad);}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav-logo" href="index.html">VISUALUV</a>
+  <a class="nav-back" href="index.html">← Volver al sitio</a>
+</header>
+
+<main>
+
+<!-- LEDE -->
+<section class="lede">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal><span>Propuesta audiovisual · <span class="year"></span></span></p>
+    <h1 data-reveal>Cierre de<br>12.º grado<em>de la infancia hasta hoy</em></h1>
+    <p data-reveal>
+      Un video sorpresa para la cena de egresados: una retrospectiva con las fotos
+      de los chicos, desde chiquitos hasta hoy, y las palabras de los maestros que
+      los acompañaron todos estos años. Algo para proyectar esa noche y para
+      llevarse a casa.
+    </p>
+    <div class="meta" data-reveal>
+      <span>Video de 5 a 7 min</span>
+      <span>Entrevistas a maestros</span>
+      <span>Versión corta para pendrive</span>
+      <span>Entrega antes del 26/11</span>
+    </div>
+  </div>
+</section>
+
+<!-- ALCANCE -->
+<section>
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <h2>Qué <em>incluye</em></h2>
+      <span class="idx">(En las dos opciones)</span>
+    </div>
+    <ul class="scope" data-reveal>
+      <li><span class="n">01</span><span class="t">Entrevistas a los maestros en la escuela<small>Grabación en una sola franja horaria, de hasta 2 hs, el día que coordinemos. Cámara, sonido con micrófono e iluminación básica.</small></span></li>
+      <li><span class="n">02</span><span class="t">Retrospectiva con las fotos de los chicos<small>Selección, orden y animación de las fotos que junten las familias, de la infancia a 12.º grado.</small></span></li>
+      <li><span class="n">03</span><span class="t">Video final de 5 a 7 minutos<small>Montaje de fotos y entrevistas con música, listo para proyectar en la cena.</small></span></li>
+      <li><span class="n">04</span><span class="t">Entrega digital en Full HD<small>Archivo MP4 por link de descarga, listo para proyector y para copiar a pendrive.</small></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- INVERSIÓN -->
+<section class="print-break">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <h2>La <em>inversión</em></h2>
+      <span class="idx">(Dos opciones)</span>
+    </div>
+
+    <div class="invest">
+      <article class="plan plan--feat" data-reveal>
+        <span class="badge">Recomendada</span>
+        <p class="kicker">Opción A</p>
+        <h3>Retrospectiva <em>Super 8</em></h3>
+        <p class="desc">Todo el video con estética de película casera de los 70: color cálido, grano, rayitas y parpadeo de proyector.</p>
+        <div class="s8" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="price">$480.000<small>video completo</small></p>
+        <ul>
+          <li>Todo lo incluido en el alcance</li>
+          <li class="plus">Tratamiento Super 8 en todo el video: color, grano, rayas y viñeteado</li>
+          <li class="plus">Fotos animadas con marcos y saltos de película</li>
+          <li class="plus">Placas de títulos con estética vintage</li>
+          <li class="plus">Versión corta de 1 a 2 min para los pendrives</li>
+          <li class="plus">2 rondas de ajustes</li>
+        </ul>
+        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Vi%20el%20presupuesto%20del%20video%20de%20cierre%20de%2012%C2%BA%20y%20elegimos%20la%20opci%C3%B3n%20A%20(Super%208)" target="_blank" rel="noopener">Elegir opción A →</a></div>
+      </article>
+
+      <article class="plan" data-reveal>
+        <p class="kicker">Opción B</p>
+        <h3>Retrospectiva <em>clásica</em></h3>
+        <p class="desc">Un montaje limpio y emotivo, con las fotos en movimiento suave y transiciones simples.</p>
+        <p class="price">$320.000<small>video completo</small></p>
+        <ul>
+          <li>Todo lo incluido en el alcance</li>
+          <li class="plus">Fotos con movimiento suave y transiciones simples</li>
+          <li class="plus">Corrección de color de las entrevistas</li>
+          <li class="plus">Placas con títulos y nombres</li>
+          <li class="plus">1 ronda de ajustes</li>
+        </ul>
+        <div class="cta"><a href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Vi%20el%20presupuesto%20del%20video%20de%20cierre%20de%2012%C2%BA%20y%20elegimos%20la%20opci%C3%B3n%20B" target="_blank" rel="noopener">Elegir opción B →</a></div>
+      </article>
+    </div>
+    <p class="invest-note" data-reveal>Forma de pago: 50% al confirmar · 50% con la entrega final.</p>
+  </div>
+</section>
+
+<!-- EXTRAS Y ACLARACIONES -->
+<section class="print-break">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <h2>Extras y <em>aclaraciones</em></h2>
+      <span class="idx">(Para tener en cuenta)</span>
+    </div>
+    <table class="extras" data-reveal>
+      <tr><td>Versión corta para los pendrives en la opción B<small>Un resumen de 1 a 2 minutos. Ya viene incluida en la opción A.</small></td><td>$40.000</td></tr>
+      <tr><td>Digitalización de fotos en papel<small>Si hay fotos impresas, se pueden escanear. Fotos sacadas con el celular a buena luz también sirven.</small></td><td><span class="tbc">Según cantidad</span></td></tr>
+      <tr><td>Copiado en pendrives<small>Entrego el archivo listo para copiar. La compra y el copiado de los pendrives quedan a cargo de las familias.</small></td><td><span class="tbc">No incluido</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section>
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <h2>Cómo <em>llegamos</em></h2>
+      <span class="idx">(Cronograma al 26/11)</span>
+    </div>
+    <div class="steps" data-reveal>
+      <div class="step"><b>Lun 16/11</b><p>Eligen la opción y <strong>confirmamos con el 50%</strong>.</p></div>
+      <div class="step"><b>Mar 17/11</b><p><strong>Entrevistas a los maestros</strong> en la escuela, en el horario que coordine Mari.</p></div>
+      <div class="step"><b>Jue 19/11</b><p>Las familias <strong>envían las fotos</strong> a una carpeta compartida.</p></div>
+      <div class="step"><b>Lun 23/11</b><p>Les mando <strong>la primera versión</strong> para revisar y pedir ajustes.</p></div>
+      <div class="step"><b>Mié 25/11</b><p><strong>Entrega final</strong> y pago del 50% restante. Listo para la cena.</p></div>
+    </div>
+    <p class="steps-note" data-reveal>Como la fecha está cerca, el cronograma depende de confirmar a tiempo y de que las fotos lleguen antes del jueves 19. Si las entrevistas pasan al martes 24, se puede llegar igual, pero con menos margen para ajustes.</p>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>¿Lo armamos?</p>
+    <a class="contact-big" href="https://wa.me/5492345510767?text=Hola%20Luc%C3%ADa!%20Vi%20el%20presupuesto%20del%20video%20de%20cierre%20de%2012%C2%BA" target="_blank" rel="noopener">HABLEMOS</a>
+    <div class="contact-links" data-reveal>
+      <a href="https://wa.me/5492345510767" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:visualuv44@gmail.com">visualuv44@gmail.com</a>
+      <a href="https://instagram.com/visualuv_" target="_blank" rel="noopener">@visualuv_</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© <span class="year"></span> VISUALUV · Lucía Rocca</span>
+    <span>El Bolsón · Patagonia Argentina</span>
+  </div>
+</footer>
+
+<script>
+  // Año dinámico
+  document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
